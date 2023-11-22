@@ -1,0 +1,130 @@
+@font-face {
+  font-family: "VisbyCF-Medium";
+  src: url('static/fonts/visbycf-medium.otf');
+}
+
+@font-face {
+  font-family: 'VisbyCF-Light';
+  src: url("static/fonts/visbycf-light.otf");
+}
+
+@font-face {
+  font-family: 'VisbyCF';
+  src: url("static/fonts/visbycf-regular.otf");
+}
+
+* {
+  margin: 0;
+  font-family: "Assistant", sans-serif;
+}
+
+body{
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  letter-spacing: 0.06rem;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
+//Top Bar
+.top-bar {
+  background-color: #fafafa;
+
+  p {
+    text-align: center;
+    padding: 10px 0;
+    color: #CF0C1D
+  }
+}
+
+//Footer
+
+footer{
+  background-color: #fafafa;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.footer-top {
+  width: 60%;
+  margin: 0 auto;
+  @media (max-width: 750px) {
+    width: 75%;
+  }
+  @media (max-width: 500px) {
+    width: 90%;
+  }
+}
+
+.footer-title {
+  font-size: 16px;
+  font-weight: bold;
+  font-family: "VisbyCF-Medium";
+  text-transform: uppercase;
+}
+
+.footer-menu {
+  list-style: none;
+  padding: 0;
+
+  a {
+    font-family: VisbyCF, sans-serif;
+    text-transform: uppercase;
+    color: #000;
+    text-decoration: none;
+  }
+}
+
+.payment-methods-head {
+  font-weight: bold;
+  display: inline-block;
+  padding-bottom: 7px;
+}
+
+.list-payment-item {
+  margin: 0 3px;
+}
+
+.footer-social {
+
+  margin: 10px 0;
+
+  .social-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .list-social-item {
+      margin: 0 10px;
+
+      a {
+        color: inherit;
+      }
+
+      i {
+        font-size: 30px;
+      }
+
+      .social-facebook{
+        color: #548bce;
+      }
+      .social-instagram{
+        color: #c720c7;
+      }
+      .social-youtube{
+        color: red;
+      }
+
+    }
+
+  }
+}
