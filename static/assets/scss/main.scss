@@ -18,7 +18,7 @@
   font-family: "Assistant", sans-serif;
 }
 
-body{
+body {
   -webkit-font-smoothing: antialiased;
   font-size: 14px;
   letter-spacing: 0.06rem;
@@ -30,7 +30,7 @@ ul {
   padding: 0;
 }
 
-a{
+a {
   text-decoration: none;
   color: inherit;
 }
@@ -48,7 +48,7 @@ a{
 
 //Footer
 
-footer{
+footer {
   background-color: #fafafa;
   padding-top: 20px;
   padding-bottom: 10px;
@@ -114,17 +114,58 @@ footer{
         font-size: 30px;
       }
 
-      .social-facebook{
+      .social-facebook {
         color: #548bce;
       }
-      .social-instagram{
+
+      .social-instagram {
         color: #c720c7;
       }
-      .social-youtube{
+
+      .social-youtube {
         color: red;
       }
 
     }
 
   }
+}
+
+//End Footer
+
+//Home Slider
+
+.home-slider{
+  width: 100%;
+  .home-slide{
+    width: 100%;
+    overflow: hidden;
+
+    //set a default aspect ratio
+    aspect-ratio: 16/5;
+    img{
+      width: 100%
+    }
+  }
+}
+
+//swiper button
+
+.custom-swiper {
+  .swiper-button-next, .swiper-button-prev {
+    background-color: #dbdbdb;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    &:after{
+      font-size: 20px;
+      color: #000;
+    }
+  }
+}
+
+.horizontal-bar{
+  height: 4px;
+  background-color: #E7DFD6;
+  margin: 0 auto;
 }
