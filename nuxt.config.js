@@ -23,11 +23,14 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '~/static/assets/scss/main.scss',
-    '~/static/fontawesome/css/all.min.css'
+    '~/static/fontawesome/css/all.min.css',
+    'swiper/css/swiper.css',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [
+    '~/plugins/index.js'
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -37,8 +40,20 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    'bootstrap-vue/nuxt'
+    'bootstrap-vue/nuxt',
+    '@nuxtjs/axios'
   ],
+
+  /*env: {
+    API_URL: process.env.API_URL,
+  },*/
+
+  axios: {
+    baseURL: process.env.BASE_URL + '/api',
+    common: {
+      'Accept': 'application/json'
+    }
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {}
