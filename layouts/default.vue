@@ -18,6 +18,9 @@ import Footer from "@/components/Footer.vue";
 export default {
   components: {
     Footer,
+  },
+  async fetch(){
+    await this.$store.dispatch('product/getCategories')
   }
 }
 </script>
