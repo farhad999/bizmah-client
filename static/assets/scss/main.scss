@@ -13,6 +13,11 @@
   src: url("static/fonts/visbycf-regular.otf");
 }
 
+@font-face {
+  font-family: 'VisbyCF-Bold';
+  src: url("static/fonts/visbycf-bold.otf");
+}
+
 * {
   margin: 0;
   font-family: "Assistant", sans-serif;
@@ -135,15 +140,17 @@ footer {
 
 //Home Slider
 
-.home-slider{
+.home-slider {
   width: 100%;
-  .home-slide{
+
+  .home-slide {
     width: 100%;
     overflow: hidden;
 
     //set a default aspect ratio
     aspect-ratio: 16/5;
-    img{
+
+    img {
       width: 100%
     }
   }
@@ -157,14 +164,15 @@ footer {
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    &:after{
+
+    &:after {
       font-size: 20px;
       color: #000;
     }
   }
 }
 
-.horizontal-bar{
+.horizontal-bar {
   height: 4px;
   background-color: #E7DFD6;
   margin: 0 auto;
@@ -193,7 +201,8 @@ footer {
         border-radius: 50%;
       }
     }
-    .category-title{
+
+    .category-title {
       text-align: center;
       padding: 10px 0;
       font-size: 20px;
@@ -203,4 +212,96 @@ footer {
   }
 }
 
+.section-title {
+  text-align: center;
+  font-size: 24px;
+  font-family: VisbyCF-Medium;
+  padding-bottom: 20px;
+  font-weight: 600;
+}
 
+//product card
+
+.product-card {
+  padding: 0 10px;
+  margin-bottom: 10px;
+
+  .product-media {
+    width: 100%;
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+    }
+
+    .discount {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      background: #d31919;
+      color: #fff;
+      border-color: #d31919;
+      text-transform: uppercase;
+      padding: 5px;
+      font-weight: bold;
+      border-radius: 3px;
+      margin-left: -5px;
+    }
+
+    .quick-view-btn {
+      visibility: hidden;
+      position: absolute;
+      bottom: 10%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      button {
+        display: block;
+        width: 80%;
+        height: 35px;
+        border: none;
+        background-color: #000;
+        color: #fff;
+        text-transform: uppercase;
+        font-size: 12px;
+        margin-bottom: 0;
+        text-align: center;
+        padding: 7px 0;
+        cursor: pointer;
+        font-family: 'VisbyCF-Medium';
+        letter-spacing: 0.1rem;
+      }
+
+    }
+  }
+
+  .product-card-bottom {
+    padding: 2px 10px;
+
+    .product-title {
+      font-size: 12px;
+      font-family: VisbyCF-Bold;
+      font-weight: 400;
+    }
+  .price-box {
+    .old-price {
+      text-decoration: line-through;
+    }
+
+    .new-price {
+      color: #000;
+      font-weight: bold;
+    }
+  }
+  }
+
+  &:hover {
+    .product-media .quick-view-btn {
+      visibility: visible;
+    }
+  }
+}
