@@ -44,9 +44,9 @@ export default {
     '@nuxtjs/axios'
   ],
 
-  /*env: {
-    API_URL: process.env.API_URL,
-  },*/
+  env: {
+    BASE_URL: process.env.BASE_URL,
+  },
 
   axios: {
     baseURL: process.env.BASE_URL + '/api',
