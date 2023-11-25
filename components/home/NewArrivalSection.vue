@@ -4,7 +4,7 @@
       <h3 class="section-title">New Arrival</h3>
     </div>
     <div class="row">
-      <div v-for="product in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]"
+      <div v-for="product in products"
            :key="product"
            class="col-md-3 col-sm-4 col-6"
       >
@@ -12,13 +12,31 @@
           :product="product"
         />
       </div>
+
+      <div class="col-12 d-flex justify-content-center my-4">
+        <button class="dark-btn" @click="loadMore">Load More</button>
+      </div>
     </div>
+
   </div>
 </template>
 <script>
 import ProductCard from "../ProductCard.vue";
 
 export default {
-  components: {ProductCard}
+  components: {ProductCard},
+  async fetch(){
+    await this.$store.dispatch('product/getNewArrivals')
+  },
+  computed: {
+    products() {
+      return this.$store.state.product.newArrivals.products;
+    }
+  },
+  methods: {
+    loadMore() {
+      this.$store.dispatch('product/getNewArrivals')
+    }
+  }
 }
 </script>

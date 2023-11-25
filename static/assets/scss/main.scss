@@ -305,3 +305,17 @@ footer {
     }
   }
 }
+
+.dark-btn{
+    border: none;
+    background-color: #000;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 12px;
+    margin-bottom: 0;
+    text-align: center;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'VisbyCF-Medium';
+    letter-spacing: 0.1rem;
+}
