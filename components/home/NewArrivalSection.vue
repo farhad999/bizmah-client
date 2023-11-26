@@ -14,7 +14,11 @@
       </div>
 
       <div class="col-12 d-flex justify-content-center my-4">
-        <button class="dark-btn" @click="loadMore">Load More</button>
+        <button class="dark-btn" @click="loadMore">
+          <span v-if="!loading">Load More</span>
+          <span v-else class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        </button>
+
       </div>
     </div>
 
@@ -31,6 +35,9 @@ export default {
   computed: {
     products() {
       return this.$store.state.product.newArrivals.products;
+    },
+    loading(){
+      return this.$store.state.product.newArrivals.loading
     }
   },
   methods: {
