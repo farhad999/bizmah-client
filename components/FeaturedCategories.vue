@@ -7,10 +7,12 @@
         <div class="swiper-wrapper">
           <div :key="index" v-for="(cat, index) in categories"
                class="category-item swiper-slide">
-            <div class="category-image-container">
-              <img :src="computeImageUrl(cat.image)" alt="cat"/>
-            </div>
-            <div class="category-title">{{cat.name}}</div>
+            <nuxt-link :to="`/category/${cat.slug}`">
+              <div class="category-image-container">
+                <img :src="computeImageUrl(cat.image)" alt="cat"/>
+              </div>
+              <div class="category-title">{{ cat.name }}</div>
+            </nuxt-link>
           </div>
         </div>
       </div>
@@ -27,8 +29,19 @@ export default {
   data() {
     return {
       categorySwiper: {
-        slidesPerView: 8,
-        spaceBetween: 10,
+        slidesPerView: 2,
+        spaceBetween: 6,
+        breakpoints: {
+          640: {
+            slidesPerView: 3,
+          },
+          1024: {
+            slidesPerView: 6,
+          },
+          1280: {
+            slidesPerView: 8,
+          }
+        }
       }
     }
   },
