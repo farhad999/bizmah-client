@@ -27,6 +27,7 @@ body {
   -webkit-font-smoothing: antialiased;
   font-size: 14px;
   letter-spacing: 0.06rem;
+  color: rgba(0, 0, 0, 0.75);
 }
 
 ul {
@@ -287,16 +288,17 @@ footer {
       font-family: VisbyCF-Bold;
       font-weight: 400;
     }
-  .price-box {
-    .old-price {
-      text-decoration: line-through;
-    }
 
-    .new-price {
-      color: #000;
-      font-weight: bold;
+    .price-box {
+      .old-price {
+        text-decoration: line-through;
+      }
+
+      .new-price {
+        color: #000;
+        font-weight: bold;
+      }
     }
-  }
   }
 
   &:hover {
@@ -306,16 +308,95 @@ footer {
   }
 }
 
-.dark-btn{
-    border: none;
-    background-color: #000;
-    color: #fff;
+.dark-btn {
+  border: none;
+  background-color: #000;
+  min-width: 40px;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin-bottom: 0;
+  text-align: center;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-family: 'VisbyCF-Medium';
+  letter-spacing: 0.1rem;
+}
+
+.product-view {
+  .product-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  .price-box {
+    .new-price {
+      font-size: 16px;
+      font-family: VisbyCF-Bold;
+      color: rgba(0, 0, 0, 0.75);
+    }
+
+    .old-price {
+      text-decoration: line-through;
+      font-family: VisbyCF-Bold;
+      font-size: 13px;
+      font-weight: 300;
+    }
+  }
+
+  .add-to-cart-btn {
+    margin: 1rem 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px #0006;
+    background-color: #1d1d1d;
     text-transform: uppercase;
-    font-size: 12px;
-    margin-bottom: 0;
-    text-align: center;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-family: 'VisbyCF-Medium';
-    letter-spacing: 0.1rem;
+    padding: 8px 0;
+    color: white;
+    font-family: VisbyCF-Bold;
+    width: 100%;
+  }
+}
+
+.variation-container {
+  .variation-list {
+    margin-bottom: 10px;
+
+    .variation-values {
+      display: flex;
+
+      .variant {
+        min-width: 33px;
+        font-size: 14px;
+        border-radius: 9px;
+        font-family: VisbyCF-Bold;
+        border: 1px solid #000;
+        padding: 5px 10px;
+        margin-right: 5px;
+        font-weight: 600;
+
+        &.active {
+          background-color: #000;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+.variation-title {
+  font-size: 14px;
+  font-family: VisbyCF-Bold;
+  margin-bottom: 5px;;
+}
+
+.description-head {
+  font-size: 20px;
+  font-family: VisbyCF-Bold;
+  border-bottom: 1px solid #000;
+  width: fit-content;
+}
+
+.font-visby-bold {
+  font-family: VisbyCF-Bold;
 }

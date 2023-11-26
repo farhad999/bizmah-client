@@ -223,5 +223,9 @@ export default {
       }
     },
 
+    selectVariation({state}, variation) {
+      state.selectedVariation = variation;
+    }
+
   },
 };
