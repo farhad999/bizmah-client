@@ -22,9 +22,10 @@ export default {
       filters: {
         category: '',
         price: '',
-        variation: '',
+        variations: [],
         search: '',
       },
+      productFilters: [],
     };
   },
   getters: {
@@ -77,6 +78,13 @@ export default {
       state.newArrivals.products = [...state.newArrivals.products, ...val];
     },
 
+    SET_PAGINATION(state, val) {
+      state.pagination = {...state.pagination, ...val};
+    },
+    SET_PRODUCT_FILTERS(state, val) {
+      state.productFilters = val;
+    }
+
   },
   actions: {
     async getCategories({commit}) {
@@ -103,7 +111,7 @@ export default {
         //sort
 
         if (state.sortBy && state.sortBy.length) {
-          params.sort_by = state.sortBy;
+          params.sort = state.sortBy;
         }
 
         if (state.category) {
@@ -129,6 +137,13 @@ export default {
 
         if (state.brand) {
           params.brand_id = state.brand;
+        }
+
+        //variations
+
+        if (state.filters.variations && state.filters.variations.length) {
+          params.variation_templates = [...new Set(state.filters.variations.map(item => item.template))].join(',');
+          params.variation_values = state.filters.variations.map(item => item.value).join(',');
         }
 
         const data = await this.$axios.$get('/products', {params});
@@ -225,6 +240,61 @@ export default {
 
     selectVariation({state}, variation) {
       state.selectedVariation = variation;
+    },
+    async getProductFilters({commit}) {
+      try {
+        let data = await this.$axios.$get('/product-filters');
+        commit('SET_PRODUCT_FILTERS', data)
+      } catch (e) {
+        console.log(e)
+      }
+    },
+
+    applyVariation({state, dispatch, commit}, payload) {
+
+      let variations = state.filters.variations;
+
+      //let index =  variations.find(item => item.template == payload.template);
+
+      let index = variations.findIndex(item => item.template === payload.template
+        && item.value === payload.value
+      );
+
+      console.log({index})
+
+      //then remove this variation
+      if (index > -1) {
+
+        variations.splice(index, 1);
+
+      } else {
+        variations = [...variations, payload];
+      }
+
+      state.filters.variations = variations;
+
+      /*if (!exist) {
+        state.filters.variations = [...variations, payload];
+      } else {
+        exist.value = [...exist.value, payload.value];
+      }*/
+
+      dispatch('getProducts')
+    },
+
+    removeVariation({state, dispatch, commit}, payload) {
+      //find and remove
+      let variations = state.filters.variations;
+      let index = variations.findIndex(item => item.template === payload.template
+        && item.value === payload.value
+      );
+
+      if (index > -1) {
+        variations.splice(index, 1);
+        state.filters.variations = variations;
+        dispatch('getProducts')
+      }
+
     }
 
   },

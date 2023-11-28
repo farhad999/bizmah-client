@@ -28,6 +28,7 @@ body {
   font-size: 14px;
   letter-spacing: 0.06rem;
   color: rgba(0, 0, 0, 0.75);
+  box-sizing: border-box;
 }
 
 ul {
@@ -399,4 +400,40 @@ footer {
 
 .font-visby-bold {
   font-family: VisbyCF-Bold;
+}
+
+//form
+.custom-select {
+  width: 100%;
+  height: 35px;
+
+  option {
+    font-size: 14px;
+    height: 50px;
+  }
+
+}
+
+//chip
+
+.filter-chip{
+  border: 1px solid #ccc;
+  padding: 5px 15px;
+  border-radius: 15px;
+  margin-right: 2px;
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: uppercase;
+
+  .close-icon{
+    margin-left: 6px;
+  }
+
+  &:hover{
+    border: 1px solid #333;
+  }
 }

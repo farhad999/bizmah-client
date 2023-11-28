@@ -56,6 +56,37 @@ export default {
     }
   },
 
+  router: {
+    base: '/',
+    linkActiveClass: '',
+    linkExactActiveClass: 'active',
+    extendRoutes(routes, resolve) {
+      routes.push(
+        {
+          path: '/category/:category',
+          component: resolve(__dirname, 'pages/shop/index.vue'),
+        },
+        {
+          path: '/category/:category/:subCategory',
+          component: resolve(__dirname, 'pages/shop/index.vue'),
+        },
+        {
+          path: '/category/:category/:subCategory/:subSubCategory',
+          component: resolve(__dirname, 'pages/shop/index.vue'),
+        },
+        {
+          path: '/shop',
+          component: resolve(__dirname, 'pages/shop/index.vue'),
+        },
+        {
+          path: '/search/:q',
+          component: resolve(__dirname, 'pages/shop/index.vue'),
+        },
+      )
+    }
+  },
+
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {}
 }
