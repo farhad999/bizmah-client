@@ -20,6 +20,7 @@
     "swiper": "5.4",
     "vue": "^2.7.10",
     "vue-awesome-swiper": "4.1.1",
+    "vue-click-outside": "^1.1.0",
     "vue-server-renderer": "^2.7.10",
     "vue-template-compiler": "^2.7.10",
     "vue-toastification": "^1.7.14"
