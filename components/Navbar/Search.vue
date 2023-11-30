@@ -95,8 +95,6 @@ export default {
     },
     closeSearch() {
       this.searchStatus = false;
-      //this.removeCloseListener();
-      console.log('close')
     },
     submitSearch() {
       this.$router.push({
