@@ -25,7 +25,10 @@
           </div>
 
           <div>
-            <i class="fa fa-shopping-cart nav-icon"></i>
+            <div class="cart-btn" @click="cartStatus = true ">
+              <span class="badge badge-pill badge-primary">{{ itemCount }}</span>
+              <i class="fa fa-shopping-cart nav-icon"></i>
+            </div>
           </div>
 
         </div>
@@ -82,8 +85,28 @@
 
     </div>
 
+    <Cart @closeCart="cartStatus = false"
+          :cart-open="cartStatus"
+    />
+
   </div>
 </template>
+
+<script>
+
+import {mapGetters} from 'vuex'
+
+export default {
+  data() {
+    return {
+      cartStatus: false,
+    }
+  },
+  computed: {
+    ...mapGetters('cart', ['itemCount'])
+  },
+}
+</script>
 
 <style scoped lang="scss">
 .header-middle {
@@ -98,18 +121,29 @@
     height: 80px;
   }
 
-  .nav-brand{
+  .nav-brand {
     //center it horizontally
     //using absolute position
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
 
-    img{
+    img {
       height: 60px;
       width: 100%;
     }
 
+  }
+
+  .cart-btn {
+    position: relative;
+    cursor: pointer;
+    //move badge right top
+    .badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+    }
   }
 
 }
@@ -188,4 +222,5 @@
 </style>
 <script setup>
 import Search from "./Search.vue";
+import Cart from "~/components/cart/Cart.vue";
 </script>

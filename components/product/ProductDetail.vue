@@ -215,7 +215,7 @@ export default {
         quantity: this.qty,
       };
 
-      //this.$store.dispatch('cart/addToCart', cartData);
+      this.$store.dispatch('cart/addToCart', {cartData, product: this.product});
 
       this.$toast("Product added to cart");
     },
