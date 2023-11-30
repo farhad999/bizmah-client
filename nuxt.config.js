@@ -31,6 +31,7 @@ export default {
   plugins: [
     {src: '~/plugins/index.js', ssr: false},
     {src: '~/plugins/filters.js', ssr: true},
+    {src: '~/plugins/veevalidate.js', ssr: false},
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -42,7 +43,8 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     'bootstrap-vue/nuxt',
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/auth-next'
   ],
 
   env: {
@@ -53,6 +55,28 @@ export default {
     baseURL: process.env.BASE_URL + '/api',
     common: {
       'Accept': 'application/json'
+    }
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        token: {
+          property: 'token',
+          global: true,
+          // required: true,
+          type: 'Bearer'
+        },
+        user: {
+          property: false,
+          autoFetch: true,
+        },
+        endpoints: {
+          login: {url: '/auth/login', method: 'post'},
+          logout: {url: '/auth/logout', method: 'post'},
+          user: {url: '/auth/user', method: 'get'}
+        }
+      }
     }
   },
 

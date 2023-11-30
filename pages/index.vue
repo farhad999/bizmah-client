@@ -2,7 +2,6 @@
   <div class="container-fluid">
     <HomeSlider/>
     <FeaturedCategories/>
-
     <NewArrivalSection/>
   </div>
 </template>
@@ -19,6 +18,11 @@ export default {
     NewArrivalSection,
     FeaturedCategories,
     HomeSlider
+  },
+  data(){
+    return {
+      user: null,
+    }
   }
 }
 </script>

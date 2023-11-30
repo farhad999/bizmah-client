@@ -24,11 +24,22 @@
             </nuxt-link>
           </div>
 
-          <div>
-            <div class="cart-btn" @click="cartStatus = true ">
+          <div class="d-flex align-items-center">
+
+            <button class="cart-btn" @click="cartStatus = true ">
               <span class="badge badge-pill badge-primary">{{ itemCount }}</span>
               <i class="fa fa-shopping-cart nav-icon"></i>
+            </button>
+            <div class="ml-3">
+              <nuxt-link v-if="$auth.loggedIn" to="/user">
+                <i class="fa fa-user nav-icon"></i>
+              </nuxt-link>
+
+              <nuxt-link v-else to="/login">
+                <i class="fa fa-sign-in-alt nav-icon"></i>
+              </nuxt-link>
             </div>
+
           </div>
 
         </div>
@@ -138,6 +149,9 @@ export default {
   .cart-btn {
     position: relative;
     cursor: pointer;
+    background-color: unset;
+    border: unset;
+    color: inherit;
     //move badge right top
     .badge {
       position: absolute;

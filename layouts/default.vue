@@ -45,6 +45,9 @@ export default {
       this.$store.commit('cart/SET_CART', JSON.parse(cartItems));
       await this.$store.dispatch('cart/getCartProducts')
     }
+
+    //await this.$auth.fetchUser('user');
+
   }
 
 }
