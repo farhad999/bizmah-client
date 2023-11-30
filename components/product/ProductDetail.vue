@@ -85,11 +85,11 @@
       </div>
       <!--Share -->
       <div class="d-flex align-items-center py-1">
-        <div class="me-3">
+        <div class="mr-3">
           <i class="fa fa-heart"></i>
           Wishlist
         </div>
-        <div class="me-3">
+        <div class="mr-3">
           <i class="fa fa-share-alt"></i>
           Share
         </div>

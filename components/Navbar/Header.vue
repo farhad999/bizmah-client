@@ -9,8 +9,8 @@
           <!--    Phn and Search     -->
           <div class="d-flex align-items-center">
             <i class="fa fa-bars d-lg-none"></i>
-            <div class="me-5 d-none d-lg-flex align-items-center">
-              <i class="fa-brands fa-whatsapp nav-icon pe-2"></i>
+            <div class="mr-5 d-none d-lg-flex align-items-center">
+              <i class="fa-brands fa-whatsapp nav-icon pr-2"></i>
               <i class="fa fa-phone nav-icon"></i>
               <Search/>
             </div>
@@ -69,8 +69,8 @@
 
       <div class="container-fluid">
         <div class="content">
-          <div class="d-flex align-items-center me-2">
-            <i class="fa-brands fa-whatsapp nav-icon pe-2"></i>
+          <div class="d-flex align-items-center mr-2">
+            <i class="fa-brands fa-whatsapp nav-icon pr-2"></i>
             <i class="fa fa-phone nav-icon"></i>
           </div>
 
