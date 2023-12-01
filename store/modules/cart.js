@@ -58,15 +58,13 @@ export default {
 
       let {cartData, product} = val
 
-      if (!state.items.length) {
+      const existingProduct = state.items.find((item) => item.variation_id === cartData.variation_id)
+      if (existingProduct) {
+        state.items.splice(state.items.indexOf(existingProduct), 1, cartData)
+      }
+
+      if (!existingProduct) {
         state.items.push(cartData)
-      } else {
-        const existingProduct = state.items.find((item) => item.variation_id === cartData.variation_id)
-        if (existingProduct) {
-          state.items.splice(state.items.indexOf(existingProduct), 1, cartData)
-        } else {
-          state.items.push(cartData)
-        }
       }
 
       state.cartProducts.push(product)
@@ -91,19 +89,39 @@ export default {
 
   },
   actions: {
-    async addToCart({dispatch, commit}, payload) {
+    async addToCart({dispatch, commit, rootState}, payload) {
       commit('ADD_TO_CART', payload)
-      //await dispatch('getCartProducts')
-      await dispatch('postToSever')
+
+      //push to server
+
+      if (rootState.auth.loggedIn) {
+        {
+          await this.$axios.post('/carts', payload.cartData);
+        }
+
+        //await dispatch('getCartProducts')
+        //await dispatch('postToSever')
+      }
     },
-    removeFromCart({dispatch, commit}, payload) {
+    async removeFromCart({dispatch, commit, rootState}, payload) {
       commit('REMOVE_FROM_CART', payload)
-      dispatch('postToSever')
+      if (rootState.auth.loggedIn) {
+        await this.$axios.$post('/remove-cart-item', {variation_id: payload.variation_id});
+      }
     },
-    updateQuantity({dispatch, commit}, payload) {
+    async updateQuantity({dispatch, commit, rootState}, payload) {
       //console.log({payload})
       commit('SET_QUANTITY', payload)
-      dispatch('postToSever')
+      if (rootState.auth.loggedIn) {
+
+        let data = {
+          variation_id: payload.cart.variation_id,
+          quantity: payload.quantity
+        };
+
+        await this.$axios.$post('/update-cart-quantity', data);
+      }
+
     },
     async getCartProducts({state, commit}) {
 
@@ -120,26 +138,13 @@ export default {
       let data = await this.$axios.$get('/cart-products', {params});
       commit('SET_CART_PRODUCTS', data)
     },
-    async getCartItems({state, commit}) {
+    async getCartItems({commit}) {
       try {
-        let data = await this.$axios.$get('/cart-items')
-        let {cart, products} = data;
-
-        console.log({cart, products, data})
-
-        commit("SET_CART", cart);
+        let data = await this.$axios.$get('/carts')
+        let {carts, products} = data;
+        commit("SET_CART", carts);
         commit("SET_CART_PRODUCTS", products);
 
-      } catch (e) {
-
-      }
-    },
-    async postToSever({state, commit, rootState}) {
-      try {
-        let cart = state.items;
-        if (rootState.auth.user) {
-          await this.$axios.post('/cart-items', {cart})
-        }
       } catch (e) {
 
       }

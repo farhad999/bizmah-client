@@ -40,10 +40,15 @@ export default {
   },
 
   async mounted() {
-    let cartItems = localStorage.getItem('cart');
-    if (cartItems && cartItems.length) {
-      this.$store.commit('cart/SET_CART', JSON.parse(cartItems));
-      await this.$store.dispatch('cart/getCartProducts')
+    if (this.$auth.loggedIn) {
+      //auth user pull carts from server
+      await this.$store.dispatch('cart/getCartItems');
+    } else {
+      let cartItems = localStorage.getItem('cart');
+      if (cartItems && cartItems.length) {
+        this.$store.commit('cart/SET_CART', JSON.parse(cartItems));
+        await this.$store.dispatch('cart/getCartProducts')
+      }
     }
 
     //await this.$auth.fetchUser('user');
