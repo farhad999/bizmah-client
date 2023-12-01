@@ -32,6 +32,7 @@ export default {
     {src: '~/plugins/index.js', ssr: false},
     {src: '~/plugins/filters.js', ssr: true},
     {src: '~/plugins/veevalidate.js', ssr: false},
+    {src: '~/plugins/axios.js', ssr: false},
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -65,7 +66,9 @@ export default {
           property: 'token',
           global: true,
           // required: true,
-          type: 'Bearer'
+          type: 'Bearer',
+          //1 month
+          maxAge: 60 * 60 * 24 * 30
         },
         user: {
           property: false,

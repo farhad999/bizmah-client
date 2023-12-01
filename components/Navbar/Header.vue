@@ -31,7 +31,7 @@
               <i class="fa fa-shopping-cart nav-icon"></i>
             </button>
             <div class="ml-3">
-              <nuxt-link v-if="$auth.loggedIn" to="/user">
+              <nuxt-link v-if="$auth.loggedIn" to="/account">
                 <i class="fa fa-user nav-icon"></i>
               </nuxt-link>
 
