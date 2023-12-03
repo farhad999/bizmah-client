@@ -32,7 +32,7 @@ export default {
     {src: '~/plugins/index.js', ssr: false},
     {src: '~/plugins/filters.js', ssr: true},
     {src: '~/plugins/veevalidate.js', ssr: false},
-    {src: '~/plugins/axios.js', ssr: false},
+    {src: '~/plugins/axios.js'},
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -45,7 +45,8 @@ export default {
   modules: [
     'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
-    '@nuxtjs/auth-next'
+    '@nuxtjs/auth-next',
+    "vue-toastification/nuxt",
   ],
 
   env: {
