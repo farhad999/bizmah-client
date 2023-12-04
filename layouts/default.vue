@@ -23,6 +23,7 @@ export default {
   },
   async fetch() {
     await this.$store.dispatch('product/getCategories')
+    await this.$store.dispatch('common/getSettings')
   },
   computed: {
     cart() {
