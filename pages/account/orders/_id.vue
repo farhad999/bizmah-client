@@ -2,8 +2,8 @@
   <div class="container">
 
     <div class="row">
-      <div class="col-sm-12 mt-5">
-        <ul class="account_bred">
+      <div class="col-sm-12 my-3">
+        <ul class="account-breadcrumb">
           <li><a href="/" class="nuxt-link-active"><i class="fa fa-home"></i></a></li>
           <li>/</li>
           <li>
@@ -12,8 +12,8 @@
           </li>
           <li>/</li>
           <li>
-            <nuxt-link to="/account" class="nuxt-link-exact-active"
-                       aria-current="page">My Orders</nuxt-link>
+            <nuxt-link to="/account/orders" aria-current="page">My Orders
+            </nuxt-link>
           </li>
         </ul>
       </div>
@@ -22,114 +22,91 @@
     <div class="card">
       <div class="card-body">
 
-        <h3 class="account-sub-title d-none d-md-block">
+        <h4>
           <i class="fa fa-shopping-bag align-middle mr-3"></i>Order Details
-        </h3>
+        </h4>
 
-        <div v-if="order">
-
-          <div class="row">
-            <div class="col-md-6 border py-3">
-              <strong>OrderId: </strong> {{ order.id }}
-            </div>
-            <div class="col-md-6 border py-3">
-              <strong>Invoice: </strong> {{ order.invoice_no }}
-            </div>
-            <div class="col-md-6 border py-3">
-              <strong>Date: </strong> {{ order.sale_date }}
-            </div>
-            <div class="col-md-6 border py-3">
-              <strong>Shipping Status: </strong> {{ order.shipping_status }}
-            </div>
-            <div class="col-md-6 border py-3">
-              <strong>Payment Method: </strong> {{ order.payment_method }}
-            </div>
-            <div class="col-md-6 border py-3">
-              <strong>Total: </strong> {{ order.final_total }}
-            </div>
-            <div class="col-md-6 border py-3">
-              <strong>Total Paid: </strong> {{ order.total_paid }}
-            </div>
-            <div class="col-md-6 border py-3">
-              <strong>Total Due: </strong> {{ order.sell_due }}
-            </div>
-            <div class="col-12 border py-3">
-              <strong>Shipping Address: </strong> {{ order.shipping_address }}
-            </div>
-          </div>
-
-          <h4 class="mt-2">Products</h4>
-          <table class="table">
-            <thead>
-            <tr>
-              <th>Image</th>
-              <th>Name</th>
-              <th>Price</th>
-              <td>Quantity</td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr :key="index" v-for="(sellLine, index) in order.sell_lines">
-              <td style="width: 100px">
-                <img v-lazy="sellLine.product.image_url"
-                     alt="image"
-                     style="width: 80px; height: 80px"
-                />
-              </td>
-              <td><h6>{{ sellLine.product.name }}</h6>
-                <p>{{ getVariation(sellLine.variations) }}</p>
-              </td>
-              <td>{{ sellLine.variations.default_sell_price }}</td>
-              <td>{{ sellLine.quantity }}</td>
-              <td v-if="order.status === 'final'">
-                <button @click="()=>selectAndOpenReviewModal(sellLine)" class="btn btn-sm btn-primary">Review</button>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-
-          <b-modal
-            v-model="reviewModal"
-            title="Write Your Review"
-            hide-footer
-          >
-            <div>
-              <div>
-                <form @submit.prevent="postReview">
-                  <div class="row">
-                    <div class="col-12 col-md-6">
-                      <label for="rating">
-                        Your rating
-                        <span class="required">*</span>
-                      </label>
-                      <BFormRating v-model="reviewData.rate" no-border show-value/>
-                    </div>
-
-                    <div class="col-12">
-                      <div class="form-group">
-                        <label>
-                          Your review
-                          <span class="required">*</span>
-                        </label>
-                        <textarea
-                          rows="4"
-                          class="form-control"
-                          v-model="reviewData.review"
-                        ></textarea>
-                      </div>
-                    </div>
-
-                    <div class="col-12">
-                      <button type="submit">Submit</button>
-                    </div>
-                  </div>
-
-                </form>
+        <div v-if="loading">
+          <span class="spinner-border"></span>
+        </div>
+        <div v-else>
+          <div v-if="order">
+            <div class="row">
+              <div class="col-md-6 border py-3">
+                <strong>Order No.: </strong> {{ order.order_no }}
+              </div>
+              <div class="col-md-6 border py-3">
+                <strong>Date: </strong> {{ order.date }}
+              </div>
+              <div class="col-md-6 border py-3">
+                <strong>Shipping Status: </strong> {{ order.shipping_status }}
+              </div>
+              <div class="col-md-6 border py-3">
+                <strong>Payment Method: </strong> {{ order.payment_method }}
+              </div>
+              <div class="col-md-6 border py-3">
+                <strong>Total: </strong> {{ order.total_amount }}
+              </div>
+              <div class="col-12 border py-3">
+                <strong>Shipping Address: </strong> {{ order.shipping_address }}
               </div>
             </div>
-          </b-modal>
 
+            <h4 class="mt-2">Products</h4>
+            <table class="table table-bordered">
+              <thead>
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr :key="index" v-for="(orderItem, index) in order.items">
+                <td style="width: 100px">
+                  <img :src="computeImageUrl(orderItem.product.image)"
+                       alt="image"
+                       style="width: 100%; height: 60px"
+                  />
+                </td>
+                <td>
+                  <h6>{{ orderItem.product.name }}</h6>
+                  <p v-if="orderItem.product.type === 'variable'">
+                    {{ getVariation(orderItem.product, orderItem.variation) }}</p>
+                </td>
+                <td>{{ orderItem.quantity }}</td>
+                <td class="font-weight-bold">{{ orderItem.price | priceFormat }}</td>
+              </tr>
+              </tbody>
+              <tfoot>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>Sub Total</td>
+                <td class="font-weight-bold">{{ order.subtotal | priceFormat }}</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>Shipping Charge</td>
+                <td class="font-weight-bold">{{ order.shipping_charge | priceFormat }}</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>Total Amount</td>
+                <td class="font-weight-bold">{{ order.total_amount | priceFormat }}</td>
+              </tr>
+              </tfoot>
+            </table>
+
+          </div>
+          <div v-else class="py-3 text-center">
+            <div class="text-18">Order Not Found</div>
+          </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -137,6 +114,7 @@
 
 <script>
 import {BFormRating} from "bootstrap-vue";
+import {computeImageUrl} from "~/utils/common";
 
 export default {
   components: {BFormRating},
@@ -150,44 +128,20 @@ export default {
       },
       selectedItem: '',
       orderId: this.$route.params.id,
+      loading: false,
     }
   },
-  fetch() {
+  async fetch() {
     let id = this.$route.params.id;
-    this.$axios.get('/orders/' + this.orderId)
-      .then(res => {
-        this.order = res.data;
-      });
+    this.loading = true;
+    this.order = await this.$axios.$get('/orders/' + id)
+    this.loading = false;
   },
   methods: {
-    getVariation(variation) {
-      return variation.product_variation.name.split('|').map((item, index) => item + ': ' + variation.name.split('|')[index]).join(', ');
+    computeImageUrl,
+    getVariation(product, variation) {
+      return product.template.split('|').map((item, index) => item + ': ' + variation.name.split('|')[index]).join(', ');
     },
-    setRating: function (e) {
-      if (e.currentTarget.parentNode.querySelector('.active'))
-        e.currentTarget.parentNode
-          .querySelector('.active')
-          .classList.remove('active');
-      e.currentTarget.classList.add('active');
-    },
-    postReview() {
-
-      let data = {...this.reviewData};
-      data.order_id = this.orderId;
-      data.product_id = this.selectedItem.product?.id;
-
-      this.$axios.post('/review', data)
-        .then(res => {
-          let {status} = res.data;
-          if (status === 'Success') {
-            this.$toast.success('Review Added');
-          }
-        })
-    },
-    selectAndOpenReviewModal(product) {
-      this.selectedItem = product;
-      this.reviewModal = true;
-    }
   }
 }
 </script>

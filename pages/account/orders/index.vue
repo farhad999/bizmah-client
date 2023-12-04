@@ -3,7 +3,7 @@
 
     <div class="row">
       <div class="col-sm-12 mt-3">
-        <ul class="account_bred">
+        <ul class="account-breadcrumb">
           <li><a href="/"><i class="fa fa-home"></i></a></li>
           <li>/</li>
           <li>
@@ -70,11 +70,11 @@
               </tr>
               </thead>
               <tbody>
-              <tr :key="index" v-for="(order,index) in orders.rows">
-                <td>{{ order.invoice_no }}</td>
-                <td>{{ order.sale_date }}</td>
+              <tr :key="index" v-for="(order,index) in orders">
+                <td>{{ order.order_no }}</td>
+                <td>{{ order.date }}</td>
                 <td>{{ order.shipping_status }}</td>
-                <td>{{ order.final_total |priceFormat }}</td>
+                <td>{{ order.total_amount | priceFormat }}</td>
                 <td>
                   <nuxt-link :to="`/account/orders/${order.id}`" class="btn btn-primary">View</nuxt-link>
                 </td>
