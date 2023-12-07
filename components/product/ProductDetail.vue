@@ -1,5 +1,11 @@
 <template>
   <div>
+    <div class="d-flex justify-content-end">
+      <button class="back-button">
+        <i class="fa fa-reply" @click="$router.go(-1)"></i>
+      </button>
+    </div>
+
     <h5 class="product-title">{{ product.name }}</h5>
 
     <!--    <div class="price-box"
