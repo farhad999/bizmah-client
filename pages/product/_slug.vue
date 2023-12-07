@@ -1,6 +1,17 @@
 <template>
   <div class="container product-view">
-    <div class="row py-3">
+
+    <div class="row">
+      <div class="col-12 mt-2 mb-4">
+        <div>
+          <nuxt-link to="/">Home</nuxt-link>
+          <span class="mx-2">
+            <i class="fa fa-chevron-right"></i>
+          </span>
+          <span>{{this.product.name}}</span>
+        </div>
+      </div>
+
       <div class="col-lg-4">
         <div class="d-none d-lg-block">
           <ProductMediaThumb
@@ -30,6 +41,21 @@
       </div>
 
     </div>
+
+    <hr />
+
+    <div>
+      <h4 class="product-section-title">Related products</h4>
+      <div class="row">
+        <ProductCard
+          v-for="(product, index) in relatedProducts"
+          class="col-6 col-md-3 col-xl-3"
+          :key="index"
+          :product="product"
+        />
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -39,13 +65,15 @@ import ProductDetail from "../../components/product/ProductDetail.vue";
 import ProductMediaThumb from "../../components/product/ProductMediaThumb.vue";
 import ProductDescription from "../../components/product/ProductDescription.vue";
 import {computeImageUrl} from "../../utils/common";
+import ProductCard from "~/components/ProductCard.vue";
 
 export default {
-  components: {ProductDescription, ProductMediaThumb, ProductMedia, ProductDetail},
+  components: {ProductCard, ProductDescription, ProductMediaThumb, ProductMedia, ProductDetail},
   data() {
     return {
       product: '',
       thumbIndex: 0,
+      relatedProducts: [],
     }
   },
   computed: {
@@ -55,7 +83,15 @@ export default {
         return [];
       }
 
-      let images = this.product.images.map(item => ({variation_id: null, image_url: computeImageUrl(item.image)}))
+      let thumbImage = {
+        variation_id: null,
+        image_url: computeImageUrl(this.product.image)
+      };
+
+      let galleryImages = this.product.images.map(item => ({
+        variation_id: null,
+        image_url: computeImageUrl(item.image)
+      }))
 
       let variationImages = this.product.variations
         .filter(variation => variation.image)
@@ -66,15 +102,14 @@ export default {
           }
         });
 
-      images = [...images, ...variationImages];
-
-      return images;
+      return [thumbImage, ...variationImages, ...galleryImages];
     },
   },
   async fetch() {
     let slug = this.$route.params.slug;
     try {
       this.product = await this.$axios.$get('/products/' + slug);
+      this.relatedProducts = await this.$axios.$get('/get-related-products/' + slug)
     } catch (e) {
 
     }
