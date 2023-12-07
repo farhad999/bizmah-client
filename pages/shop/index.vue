@@ -1,29 +1,67 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-3">
+
+      <div class="col-12" v-if="category">
+        <div class="px-md-2">
+          <img :src="computeImageUrl(category.banner_image)" alt="banner_image"
+               class="w-100"
+               v-if="category.banner_image"
+          />
+        </div>
+        <hr/>
+
+        <h4 class="featured-section-title">{{ category.name }}</h4>
+
+        <div class="shop-category-list mb-3">
+          <div class="row">
+            <div v-for="(cat, index) in category.children"
+                 class="featured-category-item col-lg-2 col-md-3 col-sm-6 col-6"
+                 :key="index"
+            >
+              <nuxt-link :to="`/category/${cat.slug}`">
+                <div class="category-image-container">
+                  <img :src="computeImageUrl(cat.image)" alt="cat"/>
+                </div>
+                <div class="category-title">{{ cat.name }}</div>
+              </nuxt-link>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="col-lg-3 my-2">
 
         <!--Desktop -->
         <div>
-          <div>{{ pagination.total }} Products</div>
-          <div>Sort By:</div>
-          <select class="custom-select" @change="onSortChange">
-            <option v-for="(option, index) in sortOptions" :key="index" :value="option.value">
-              {{ option.title }}
-            </option>
-          </select>
+          <div class="d-flex d-md-block justify-content-between">
+            <div>{{ pagination.total }} Products</div>
+            <div class="filter-title">
+              <i class="fa fa-arrow-up-short-wide"></i>Sort By:
+            </div>
+            <select class="product-sort" @change="onSortChange">
+              <option v-for="(option, index) in sortOptions" :key="index" :value="option.value">
+                {{ option.title }}
+              </option>
+            </select>
+          </div>
 
-          <h4><i class="fa fa-gears"></i> Filter</h4>
+          <div class="filter-title mt-4">
+            <i class="fa fa-sliders"></i>
+            Filter
+          </div>
 
           <!--Filters-->
-          <div class="d-flex align-items-center flex-wrap">
+          <div class="d-flex align-items-center flex-wrap my-2">
             <!--variation filters-->
-            <FilterChip @remove="removeVariation" :item="filter" v-for="filter in filters.variations" :key="filter.id" />
+            <FilterChip @remove="removeVariation" :item="filter" v-for="filter in filters.variations" :key="filter.id"/>
           </div>
 
           <div class="d-flex d-md-block">
             <Disclosure v-for="filter in productFilters" :key="filter.id" :filter="filter"
-            :title="filter.name" :items="filter.values"
+                        :title="filter.name" :items="filter.values"
             />
           </div>
 
@@ -176,7 +214,7 @@ export default {
     productFilters() {
       return this.$store.state.product.productFilters;
     },
-    filters(){
+    filters() {
       return this.$store.state.product.filters;
     }
   },
@@ -233,7 +271,7 @@ export default {
 
       this.$store.dispatch('product/applyParams', {params, query});
     },
-    removeVariation(filter){
+    removeVariation(filter) {
       this.$store.dispatch('product/removeVariation', filter);
     }
   },

@@ -1,12 +1,20 @@
 <template>
+
   <div class="row">
-    <div v-for="product in products"
-         :key="product"
-         class="col-md-3 col-sm-4 col-6"
-    >
-      <ProductCard
-        :product="product"
-      />
+    <template v-if="products.length">
+      <div v-for="product in products"
+           :key="product"
+           class="col-md-3 col-sm-4 col-6"
+      >
+        <ProductCard
+          :product="product"
+        />
+      </div>
+    </template>
+    <div class="col-12">
+      <div class="py-5">
+        <div class="text-center font-visby-bold text-18">No Products Found</div>
+      </div>
     </div>
   </div>
 </template>
@@ -24,9 +32,7 @@ export default {
       },
   },
   data() {
-    return {
-
-    }
+    return {}
   },
   methods: {
     showSidebarFilter: function () {

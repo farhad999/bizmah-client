@@ -6,7 +6,7 @@
       <div v-swiper="categorySwiper">
         <div class="swiper-wrapper">
           <div :key="index" v-for="(cat, index) in categories"
-               class="category-item swiper-slide">
+               class="featured-category-item swiper-slide">
             <nuxt-link :to="`/category/${cat.slug}`">
               <div class="category-image-container">
                 <img :src="computeImageUrl(cat.image)" alt="cat"/>

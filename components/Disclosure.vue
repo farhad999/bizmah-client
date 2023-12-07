@@ -1,7 +1,7 @@
 <template>
   <div class="disclosure disclosure-has-popup" data-index="1">
     <div class="summary" @click="open = !open">
-      <span class="text">{{ title }}</span>
+      <span class="title">{{ title }}</span>
       <i class="fa fa-chevron-down"></i>
     </div>
     <div class="content" :class="{'show' : open}">
@@ -19,7 +19,7 @@
         <li :key="index" v-for="(item, index) in items"
             @change="()=>onClickItem(item)"
         >
-          <label class="d-block">
+          <label class="d-block text-uppercase">
             <input type="checkbox" :value="item"
                    :checked="isItemActive(item)"
             >
@@ -70,17 +70,29 @@ export default {
 <style scoped lang="scss">
 .disclosure {
   position: relative;
+  cursor: pointer;
 
   .summary {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px;
-    border-bottom: 1px solid #999;
+    padding: 5px 10px;
+    border-bottom: 1px solid #ddd;
+    margin-right: 5px;
+
+    @media (max-width: 767px) {
+      background-color: #eee
+    }
+
+    .title {
+      text-transform: uppercase;
+      padding-right: 20px;
+      color: #000;
+    }
   }
 
   .content {
-    border: 1px solid #999;
+    border: 1px solid #ddd;
     margin: 5px 0;
     display: none;
 
@@ -93,7 +105,7 @@ export default {
       padding: 5px 10px;
       display: flex;
       justify-content: space-between;
-      border-bottom: 1px solid #999;
+      border-bottom: 1px solid #ddd;
 
       .close-button {
         color: rgba(0, 0, 0, 0.75)
