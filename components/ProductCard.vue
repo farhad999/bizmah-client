@@ -15,7 +15,7 @@
       </div>
 
       <div class="product-card-bottom">
-        <div class="product-title">{{ product.name }}</div>
+        <div class="product-title text-capitalize">{{ product.name }}</div>
         <div class="price-box">
           <span class="old-price">{{ product.min_old_price }}</span>
           <span class="new-price">{{ product.min_price }}</span>
