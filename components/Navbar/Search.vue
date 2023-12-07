@@ -11,6 +11,7 @@
       <button>
         <i @click="submitSearch" class="fa fa-search"></i>
       </button>
+
     </div>
 
     <!----Search Result---->
@@ -117,6 +118,10 @@ export default {
 
   @media (max-width: 992px) {
     flex: 0 0 80%;
+  }
+
+  @media (max-width: 768px) {
+    flex: 0 0 100%;
   }
 
 }

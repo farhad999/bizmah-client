@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <HomeSlider/>
+    <HomeSlider :slides="slides"/>
     <FeaturedCategories/>
     <NewArrivalSection/>
   </div>
@@ -23,6 +23,14 @@ export default {
     return {
       user: null,
     }
+  },
+  computed: {
+    slides(){
+      return this.$store.state.common.homeSlides;
+    }
+  },
+  async fetch(){
+    await this.$store.dispatch('common/getHomeSlides')
   }
 }
 </script>

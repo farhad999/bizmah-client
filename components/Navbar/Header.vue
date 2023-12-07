@@ -9,6 +9,14 @@
           <!--    Phn and Search     -->
           <div class="d-flex align-items-center">
             <i class="fa fa-bars d-lg-none"></i>
+
+            <div class="mobile-brand d-md-none">
+              <nuxt-link to="/">
+                <img
+                  src="assets/images/logo.png" alt="Bizmah">
+              </nuxt-link>
+            </div>
+
             <div class="mr-5 d-none d-lg-flex align-items-center">
               <i class="fa-brands fa-whatsapp nav-icon pr-2"></i>
               <i class="fa fa-phone nav-icon"></i>
@@ -17,7 +25,7 @@
           </div>
 
           <!-- 	Logo     -->
-          <div class="nav-brand">
+          <div class="nav-brand d-none d-md-block">
             <nuxt-link to="/">
               <img
                 src="assets/images/logo.png" alt="Bizmah">
@@ -52,42 +60,52 @@
     <div class="category-desktop">
       <div class="container-fluid">
         <ul class="list">
-          <li>
-            <span>Menu-1</span>
-            <ul class="mega-menu">
-              <li>
-                <span class="item">
-                  Menu-1-1
-                </span>
-                <ul>
-                  <li>Menu-1-1-1</li>
-                  <li>Menu-1-1-2</li>
-                  <li>Menu-1-1-3</li>
+          <li v-for="category in categories" class="menu-item">
+            <span>{{ category.name }}</span>
+            <div class="mega-menu row" v-if="category.children && category.children.length">
+              <div class="col-md-9">
+                <ul class="row">
+                  <li v-for="child in category.children" class="sub-item col-md-3">
+                    <nuxt-link :to="`/category/${category.slug}/${child.slug}`">
+                      {{ child.name }}
+                    </nuxt-link>
+                    <ul v-if="child.children && child.children.length"
+                        class="sub-sub-menu"
+                    >
+                      <li v-for="item in child.children" class="sub-sub-menu-item">
+                        <nuxt-link :to="`/category/${category.slug}/${child.slug}/${item.slug}`">{{
+                            item.name
+                          }}
+                        </nuxt-link>
+                      </li>
+                    </ul>
+                  </li>
                 </ul>
-              </li>
-              <li>Menu-1-2</li>
-              <li>Menu-1-3</li>
-            </ul>
+              </div>
+              <div class="col-md-3 overflow-hidden">
+                <img :src="computeImageUrl(category.image)"
+                class="w-100"
+                />
+              </div>
+            </div>
           </li>
-          <li>Menu-2</li>
-          <li>Menu-3</li>
-          <li>Menu-4</li>
         </ul>
       </div>
+
     </div>
 
     <div class="header-bottom d-lg-none">
 
       <div class="container-fluid">
         <div class="content">
-          <div class="d-flex align-items-center mr-2">
+          <div class="align-items-center mr-2 d-none d-md-flex">
             <i class="fa-brands fa-whatsapp nav-icon pr-2"></i>
             <i class="fa fa-phone nav-icon"></i>
           </div>
 
           <Search/>
 
-          <div class="checkout">
+          <div class="checkout d-none d-md-block">
             <nuxt-link to="/checkout">Checkout</nuxt-link>
           </div>
         </div>
@@ -114,7 +132,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('cart', ['itemCount'])
+    ...mapGetters('cart', ['itemCount']),
+    categories() {
+      return this.$store.state.product.categories;
+    }
   },
 }
 </script>
@@ -135,6 +156,8 @@ export default {
   .nav-brand {
     //center it horizontally
     //using absolute position
+
+
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -145,6 +168,16 @@ export default {
     }
 
   }
+
+  .mobile-brand {
+    padding-left: 10px;
+
+    img {
+      height: 35px;
+      width: 100%;
+    }
+  }
+
 
   .cart-btn {
     position: relative;
@@ -200,31 +233,60 @@ export default {
     align-items: center;
     justify-content: center;
 
-    li {
-      padding: 5px 10px;
+    .menu-item {
+      padding: 10px 20px;
       //position: relative;
+      span {
+        font-family: VisbyCF-Medium;
+      }
+
+      cursor: pointer;
+
       .mega-menu {
         display: none;
         position: absolute;
         width: 90vw;
+        height: 60vh;
         margin: 0 auto;
+        padding: 10px 20px;
         top: 30px;
         left: 50%;
         background-color: white;
-        border: 1px solid;
         z-index: 10;
         transform: translateX(-50%);
+        border: 1px solid #fafafa;
 
-        .item {
-          font-weight: bold;
-          text-decoration: underline;
+        .sub-item {
+          & > a {
+            font-weight: bold;
+            font-size: 16px;
+            text-transform: uppercase;
+            //padding: 5px 0;
+            display: block;
+            border-bottom: 1px solid #999;
+          }
+        }
+
+        .sub-sub-menu {
+          margin-left: 0;
+          padding-top: 10px;
+          padding-bottom: 10px;
+
+          .sub-sub-menu-item {
+            a {
+              font-size: 15px;
+              padding: 15px 0;
+              margin: 5px 0;
+              font-family: VisbyCF-Light;
+            }
+          }
         }
 
       }
 
       &:hover {
         .mega-menu {
-          display: block;
+          display: flex;
         }
       }
 
@@ -237,4 +299,5 @@ export default {
 <script setup>
 import Search from "./Search.vue";
 import Cart from "~/components/cart/Cart.vue";
+import {computeImageUrl} from "~/utils/common";
 </script>

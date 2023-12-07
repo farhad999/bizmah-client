@@ -4,6 +4,7 @@ export default {
   state: function () {
     return {
       settings: {},
+      homeSlides: [],
     }
   },
   getters: {},
@@ -11,6 +12,9 @@ export default {
     SET_SETTINGS: function (state, value) {
       state.settings = value;
     },
+    SET_HOME_SLIDES: function (state, value) {
+      state.homeSlides = value;
+    }
   },
   actions: {
     async getSettings({commit}) {
@@ -19,6 +23,14 @@ export default {
         commit('SET_SETTINGS', settings)
       } catch (e) {
 
+      }
+    },
+    async getHomeSlides({commit}) {
+      try {
+        let homeSlides = await this.$axios.$get('/home-slides');
+        commit('SET_HOME_SLIDES', homeSlides)
+      } catch (e) {
+        console.log(e)
       }
     }
   },
