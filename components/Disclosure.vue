@@ -15,23 +15,33 @@
         </span>
       </div>
 
-      <ul class="body">
-        <li :key="index" v-for="(item, index) in items"
-            @change="()=>onClickItem(item)"
-        >
-          <label class="d-block text-uppercase">
+      <div class="body">
+        <ul>
+          <li :key="index" v-for="(item, index) in items"
+              @change="()=>onClickItem(item)"
+              class="custom-control custom-checkbox"
+          >
             <input type="checkbox" :value="item"
                    :checked="isItemActive(item)"
+                   class="custom-control-input"
+                   :id="`${item}_${index}`"
+            />
+            <label class="text-uppercase d-block custom-control-label"
+                   :for="`${item}_${index}`"
             >
-            {{ item }}
-          </label>
-        </li>
-      </ul>
+              {{ item }}
+            </label>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import CustomCheckbox from "~/components/CustomCheckbox.vue";
+
 export default {
+  components: {CustomCheckbox},
   props: {
     title: {
       type: String,
