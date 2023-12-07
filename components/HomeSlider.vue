@@ -4,10 +4,10 @@
       class="home-slider"
       :options="homeSlider"
     >
-      <div class="home-slide swiper-slide" v-for="(slide,index) in [1, 2, 3, 4]">
+      <div class="home-slide swiper-slide" v-for="(slide,index) in slides" :key="index">
         <img
           class="slide-bg"
-          :src="`https://picsum.photos/1600/500?random=${index}`"
+          :src="computeImageUrl(slide.image)"
           alt="slider image"
           loading="lazy"
         />
@@ -19,13 +19,15 @@
 <script>
 
 import CustomSwiper from "@/components/CustomSwiper.vue";
+import {computeImageUrl} from "~/utils/common";
 
 export default {
+  methods: {computeImageUrl},
   components: {
     CustomSwiper
   },
   props: {
-    sliders: {
+    slides: {
       type: Array,
       required: true,
     },
