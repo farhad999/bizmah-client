@@ -1,6 +1,5 @@
 <template>
   <div v-if="!cityLoading">
-
     <ValidationObserver v-slot="{handleSubmit, invalid}">
       <form @submit.prevent="handleSubmit(submit)" class="mb-0">
 
@@ -69,6 +68,7 @@
                   label="name"
                   item-class="form-control"
                   v-model="addressData.city"
+                  @input="onSelectCity"
                 />
                 <p class="text-danger mt-1">{{ errors[0] }}</p>
               </div>
