@@ -261,6 +261,12 @@ export default {
           //order successful
           this.$toast.success(data.message);
           await this.$store.dispatch('cart/removeAll')
+
+          if (data.user_info_updated) {
+            //then refetch user data
+            await this.$auth.fetchUser();
+          }
+
           await this.$router.replace({path: '/order-success', query: {order_no: data.order_no}});
         }
 
@@ -275,11 +281,11 @@ export default {
     },
 
   },
-  mounted(){
+  mounted() {
     if (!this.$auth.loggedIn) {
       //add address from local storage
       //address is stored in local storage
-      if(localStorage.getItem('address')){
+      if (localStorage.getItem('address')) {
         this.address = JSON.parse(localStorage.getItem('address'));
       }
     }
