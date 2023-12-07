@@ -89,7 +89,7 @@ export default {
   actions: {
     async getCategories({commit}) {
       try {
-        const data = await this.$axios.$get('/categories');
+        const data = await this.$axios.$get('/featured-categories');
         commit('SET_CATEGORIES', data);
       } catch (err) {
         console.log(err);
