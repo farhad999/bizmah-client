@@ -10,11 +10,11 @@
     <div class="d-flex align-items-center my-3"
          :class="{'d-none d-block': direction === 'left'}"
     >
-      <div class="me-5">
+      <div class="mr-5">
         <i class="fa fa-heart"></i>
         Wishlist
       </div>
-      <div class="me-2">
+      <div class="mr-2">
         <i class="fa fa-share-alt"></i>
         Share
       </div>
