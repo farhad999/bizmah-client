@@ -4,7 +4,15 @@
       <!-- Product Media -->
       <div class="product-media">
         <div>
-          <img :src="computeImageUrl(product.image)" alt="product-image"/>
+          <img :src="computeImageUrl(product.image)" alt="product-image"
+               class="primary-image"
+          />
+
+          <img :src="computeImageUrl(product.secondary_image)" alt="secondary-image"
+               v-if="product.secondary_image"
+               class="secondary-image"
+          />
+
         </div>
 
         <div class="badge discount">60% Off</div>

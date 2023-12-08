@@ -277,8 +277,29 @@ footer {
     aspect-ratio: 3/4;
     overflow: hidden;
 
+    .secondary-image {
+      opacity: 0;
+    }
+
     img {
       width: 100%;
+      object-fit: cover;
+      object-position: center center;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    &:hover {
+      .secondary-image {
+        opacity: 1;
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        scale: 1.05;
+      }
+
     }
 
     .discount {
@@ -293,6 +314,7 @@ footer {
       font-weight: bold;
       border-radius: 3px;
       margin-left: -5px;
+      z-index: 5;
     }
 
     .quick-view-btn {
@@ -303,6 +325,7 @@ footer {
       display: flex;
       align-items: center;
       justify-content: center;
+      z-index: 3;
 
       button {
         display: block;
@@ -325,7 +348,7 @@ footer {
   }
 
   .product-card-bottom {
-    padding: 2px 10px;
+    padding: 2px 0;
 
     .product-title {
       font-size: 12px;
@@ -334,13 +357,22 @@ footer {
     }
 
     .price-box {
+
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
       .old-price {
         text-decoration: line-through;
+        margin-right: 5px;
       }
 
       .new-price {
-        color: #000;
-        font-weight: bold;
+        font-size: 16px;
+        letter-spacing: .1rem;
+        line-height: 1.5;
+        justify-content: space-between;
       }
     }
   }
@@ -830,3 +862,11 @@ section.breadcrumb-custom {
 
 }
 
+//update container
+
+@media (min-width: 750px) {
+  .page-container{
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+}

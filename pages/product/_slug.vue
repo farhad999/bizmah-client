@@ -1,50 +1,53 @@
 <template>
-  <div class="container product-view">
+  <div>
 
-    <div class="row">
-      <div class="col-12 mt-2 mb-4">
-        <div>
-          <nuxt-link to="/">Home</nuxt-link>
-          <span class="mx-2">
+    <div class="page-container product-view">
+
+      <div class="row">
+        <div class="col-12 mt-2 mb-4">
+          <div>
+            <nuxt-link to="/">Home</nuxt-link>
+            <span class="mx-2">
             <i class="fa fa-chevron-right"></i>
           </span>
-          <span>{{this.product.name}}</span>
+            <span>{{ this.product.name }}</span>
+          </div>
         </div>
-      </div>
 
-      <div class="col-lg-4">
-        <div class="d-none d-lg-block">
-          <ProductMediaThumb
-            :images="images" :product="product" direction="left"
-            @onThumbClick="(index)=>thumbIndex = index"
+        <div class="col-lg-4">
+          <div class="d-none d-lg-block">
+            <ProductMediaThumb
+              :images="images" :product="product" direction="left"
+              @onThumbClick="(index)=>thumbIndex = index"
+            />
+          </div>
+          <div class="d-none d-lg-block">
+            <ProductDescription :product="product"/>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <ProductMedia
+            :product="product"
+            :images="images"
+            :thumbIndex="thumbIndex"
+            @onThumbClick="(index)=>thumbIndex=index"
           />
         </div>
-        <div class="d-none d-lg-block">
+
+        <div class="col-lg-4">
+          <ProductDetail v-if="product" :product="product"/>
+        </div>
+        <div class="d-lg-none">
           <ProductDescription :product="product"/>
         </div>
+
       </div>
 
-      <div class="col-lg-4">
-        <ProductMedia
-          :product="product"
-          :images="images"
-          :thumbIndex="thumbIndex"
-          @onThumbClick="(index)=>thumbIndex=index"
-        />
-      </div>
-
-      <div class="col-lg-4">
-        <ProductDetail v-if="product" :product="product"/>
-      </div>
-      <div class="d-lg-none">
-        <ProductDescription :product="product"/>
-      </div>
-
+      <hr/>
     </div>
 
-    <hr />
-
-    <div>
+    <div class="page-container">
       <h4 class="product-section-title">Related products</h4>
       <div class="row">
         <ProductCard
@@ -83,10 +86,17 @@ export default {
         return [];
       }
 
-      let thumbImage = {
+      let thumbImage = [{
         variation_id: null,
         image_url: computeImageUrl(this.product.image)
-      };
+      }];
+
+      if(this.product.secondary_image){
+        thumbImage.push({
+          variation_id: null,
+          image_url: computeImageUrl(this.product.secondary_image)
+        })
+      }
 
       let galleryImages = this.product.images.map(item => ({
         variation_id: null,
@@ -102,7 +112,7 @@ export default {
           }
         });
 
-      return [thumbImage, ...variationImages, ...galleryImages];
+      return [...thumbImage, ...variationImages, ...galleryImages];
     },
   },
   async fetch() {
