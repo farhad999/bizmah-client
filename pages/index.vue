@@ -1,8 +1,10 @@
 <template>
   <div class="container-fluid">
     <HomeSlider :slides="slides"/>
-    <FeaturedCategories/>
-    <NewArrivalSection/>
+    <div class="page-container">
+      <FeaturedCategories/>
+      <NewArrivalSection/>
+    </div>
   </div>
 </template>
 
