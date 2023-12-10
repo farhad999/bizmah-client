@@ -38,7 +38,7 @@
         <div class="col-lg-4">
           <ProductDetail v-if="product" :product="product"/>
         </div>
-        <div class="d-lg-none">
+        <div class="d-lg-none col-12">
           <ProductDescription :product="product"/>
         </div>
 
