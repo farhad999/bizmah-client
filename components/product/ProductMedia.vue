@@ -8,7 +8,7 @@
         />
       </div>
     </CustomSwiper>
-    <div class="d-lg-none mt-2">
+    <div class="d-lg-none mt-2" v-if="!hideThumb">
       <ProductMediaThumb :images="images" direction="bottom"
       @onThumbClick="(index)=>onClickThumb(index)"
       />
@@ -32,12 +32,17 @@ export default {
     thumbIndex: {
       type: Number,
       default: 0
+    },
+    hideThumb: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
       sliderOptions: {
-        slidesPerView: 1,
+        //slidesPerView: 1,
+        slidesPerView: 'auto'
       },
     }
   },

@@ -9,15 +9,28 @@
     <Header/>
     <Nuxt/>
     <Footer/>
+
+    <!-- Quick Product -->
+
+    <b-modal id="quick-product"
+             hide-footer
+             size="xl"
+             :visible="quickViewModal"
+             @hidden="$store.dispatch('product/closeQuickView')"
+    >
+      <QuickProduct/>
+    </b-modal>
   </div>
 </template>
 
 <script>
 import Footer from "@/components/Footer.vue";
 import Header from "../components/Navbar/Header.vue";
+import QuickProduct from "~/components/product/QuickProduct.vue";
 
 export default {
   components: {
+    QuickProduct,
     Header,
     Footer,
   },
@@ -29,6 +42,9 @@ export default {
     cart() {
       return this.$store.state.cart.items;
     },
+    quickViewModal() {
+      return this.$store.state.product.quickViewModal
+    }
   },
   watch: {
     cart: {

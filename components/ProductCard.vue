@@ -17,7 +17,7 @@
 
         <div class="badge discount">60% Off</div>
         <div class="quick-view-btn">
-          <button>Quick View</button>
+          <button @click.prevent="$store.dispatch('product/openQuickView', product)">Quick View</button>
         </div>
 
       </div>
@@ -38,7 +38,11 @@
 import {computeImageUrl} from "../utils/common";
 
 export default {
-  methods: {computeImageUrl},
+  methods: {computeImageUrl,
+  openQuick(){
+
+  }
+  },
   props: {
     product: {
       type: Object | Number,

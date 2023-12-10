@@ -26,6 +26,9 @@ export default {
         search: '',
       },
       productFilters: [],
+      quickProduct: '',
+      quickViewModal: false,
+      quickProductSlug: '',
     };
   },
   getters: {
@@ -295,6 +298,14 @@ export default {
         dispatch('getProducts')
       }
 
+    },
+    openQuickView({state}, payload) {
+      state.quickViewModal = true;
+      state.quickProductSlug = payload.slug;
+    },
+
+    closeQuickView({state}) {
+      state.quickViewModal = false;
     }
 
   },
