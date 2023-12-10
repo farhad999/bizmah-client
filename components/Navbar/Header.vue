@@ -8,7 +8,12 @@
 
           <!--    Phn and Search     -->
           <div class="d-flex align-items-center">
-            <i class="fa fa-bars d-lg-none"></i>
+
+            <button @click="$emit('openMobileMenu')"
+                    class="d-md-none mr-2 mobile-toggle-btn"
+            >
+              <i class="fa fa-bars"></i>
+            </button>
 
             <div class="mobile-brand d-md-none">
               <nuxt-link to="/">
@@ -151,6 +156,12 @@ export default {
     justify-content: space-between;
     position: relative;
     height: 80px;
+  }
+
+  .mobile-toggle-btn{
+    background-color: transparent;
+    border: none;
+    color: white;
   }
 
   .nav-brand {

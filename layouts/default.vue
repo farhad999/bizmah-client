@@ -6,7 +6,7 @@
         FREE SHIPPING FOR ORDERS ON AND ABOVE BDT2500 WITHIN Bangladesh
       </p>
     </div>
-    <Header/>
+    <Header @openMobileMenu="mobileMenuStatus = true"/>
     <Nuxt/>
     <Footer/>
 
@@ -20,6 +20,13 @@
     >
       <QuickProduct/>
     </b-modal>
+
+    <!-- Mobile Menu -->
+
+    <MobileMenu :mobileMenuStatus="mobileMenuStatus"
+                @close="mobileMenuStatus = false"
+    />
+
   </div>
 </template>
 
@@ -27,12 +34,19 @@
 import Footer from "@/components/Footer.vue";
 import Header from "../components/Navbar/Header.vue";
 import QuickProduct from "~/components/product/QuickProduct.vue";
+import MobileMenu from "~/components/MobileMenu.vue";
 
 export default {
   components: {
     QuickProduct,
     Header,
     Footer,
+    MobileMenu,
+  },
+  data() {
+    return {
+      mobileMenuStatus: false,
+    }
   },
   async fetch() {
     await this.$store.dispatch('product/getCategories')
