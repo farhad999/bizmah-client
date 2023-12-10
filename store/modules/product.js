@@ -29,6 +29,7 @@ export default {
       quickProduct: '',
       quickViewModal: false,
       quickProductSlug: '',
+      search: '',
     };
   },
   getters: {
@@ -142,6 +143,10 @@ export default {
           params.brand_id = state.brand;
         }
 
+        if(state.search){
+          params.q = state.search
+        }
+
         //variations
 
         if (state.filters.variations && state.filters.variations.length) {
@@ -215,6 +220,10 @@ export default {
         state.subCategory = params.subCategory || null;
         state.subSubCategory = params.subSubCategory || null;
         state.brand = params.brand || null;
+        state.search = params.search || '';
+
+        console.log("called", params);
+
       }
 
       if (query) {

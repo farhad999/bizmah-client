@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
 
+    <div class="row">
       <div class="col-12" v-if="category">
         <div class="px-md-2">
           <img :src="computeImageUrl(category.banner_image)" alt="banner_image"
@@ -31,12 +31,18 @@
 
       </div>
 
+      <div class="col-12 text-center py-4" v-if="search">
+        <h4>Search Results For <strong>"{{search}}"</strong></h4>
+        <hr/>
+      </div>
+    </div>
 
+    <div class="row">
       <div class="col-lg-3 my-2">
 
         <!--Desktop -->
         <div>
-          <div class="d-flex d-md-block justify-content-between">
+          <div class="d-flex d-md-block justify-content-between align-items-center">
             <div>{{ pagination.total }} Products</div>
             <div class="filter-title">
               <i class="fa fa-arrow-up-short-wide"></i>Sort By:
@@ -86,6 +92,7 @@ import {computeImageUrl} from "../../utils/common";
 import Accordion from "../../components/Accordion.vue";
 import Disclosure from "../../components/Disclosure.vue";
 import FilterChip from "../../components/FilterChip.vue";
+import search from "../../components/Navbar/Search.vue";
 
 export default {
   components: {
@@ -245,9 +252,9 @@ export default {
 
     applyParams(query) {
 
-      let {category, subCategory, subSubCategory, brandSlug} = this.$route.params;
+      let {category, subCategory, subSubCategory, brandSlug, search} = this.$route.params;
 
-      let params = {};
+      let params = {search};
       let cat = '';
 
       if (category) {
@@ -276,6 +283,7 @@ export default {
     }
   },
   created() {
+    //console.log({route: this.$route});
     this.applyParams(this.$route.query);
   }
 };

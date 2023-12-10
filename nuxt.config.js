@@ -107,7 +107,7 @@ export default {
           component: resolve(__dirname, 'pages/shop/index.vue'),
         },
         {
-          path: '/search/:q',
+          path: '/search/:search',
           component: resolve(__dirname, 'pages/shop/index.vue'),
         },
       )

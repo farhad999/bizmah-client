@@ -36,7 +36,7 @@
         </div>
 
         <div class="search-bottom">
-          <nuxt-link :to="'/shop?q='+search">View More</nuxt-link>
+          <nuxt-link :to="'/search/'+search">View More</nuxt-link>
         </div>
       </div>
 
@@ -116,8 +116,7 @@ export default {
     },
     submitSearch() {
       this.$router.push({
-        path: '/shop',
-        query: {q: this.search}
+        path: '/search/' + this.search,
       })
       this.closeSearch()
     },
