@@ -8,8 +8,6 @@ export default function (app) {
     return config;
   });*/
 
-  console.log("app", app)
-
   app.$axios.onError(error => {
     if (error.response === undefined) {
       // Display a flash notification
