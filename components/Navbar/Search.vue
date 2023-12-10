@@ -6,7 +6,7 @@
              class="input-search"
              v-model="search"
              @focus="openSearch"
-             @input="performSearch"
+             @input="handleSearch"
       >
       <button>
         <i @click="submitSearch" class="fa fa-search"></i>
@@ -17,25 +17,38 @@
     <!----Search Result---->
 
     <div class="search-result"
-         v-show="searchStatus && results.length"
+         v-show="searchStatus && search.length"
     >
+      <div v-if="results.length">
+        <div class="search-header">
+          {{ searchData.total }} products
+        </div>
 
-      <div class="search-header">
-        {{ searchData.total }} products
+        <div class="search-body">
+          <ul>
+            <li v-for="(result,index) in results"
+                :key="index"
+                class="item"
+            >
+              <SearchItem @close="closeSearch" :item="result"/>
+            </li>
+          </ul>
+        </div>
+
+        <div class="search-bottom">
+          <nuxt-link :to="'/shop?q='+search">View More</nuxt-link>
+        </div>
       </div>
 
-      <ul>
-        <li v-for="(result,index) in results"
-            :key="index"
-            class="item"
-        >
-          <SearchItem @close="closeSearch" :item="result"/>
-        </li>
-      </ul>
-
-      <div class="search-bottom">
-        <nuxt-link to="/shop">View More</nuxt-link>
+      <div v-else class="py-4 p-2">
+        <div v-if="loading" class="d-flex justify-content-center">
+          <span class="spinner-border"></span>
+        </div>
+        <div v-else>
+          No Products Found
+        </div>
       </div>
+
     </div>
   </div>
 
@@ -48,6 +61,7 @@
 import {computeImageUrl} from "../../utils/common";
 import SearchItem from "../SearchItem.vue";
 import ClickOutside from 'vue-click-outside'
+import debounce from 'lodash/debounce'
 
 export default {
   components: {SearchItem},
@@ -70,6 +84,9 @@ export default {
   },
   methods: {
     computeImageUrl,
+    handleSearch: debounce(function () {
+      this.performSearch()
+    }, 500),
     performSearch() {
       this.loading = true;
       if (this.search) {
@@ -169,8 +186,6 @@ export default {
   top: 30px;
   left: 10px;
   color: black;
-  max-height: 70vh;
-  overflow-y: auto;
   z-index: 100;
   box-shadow: 0 10px 15px rgba(0, 0, 0, .2), 0 1px 0 rgba(0, 0, 0, .05) inset, 0 -5px 0 0 #fff;
 
@@ -183,13 +198,36 @@ export default {
   }
 
   .search-header {
-    background-color: #eee;
+    background-color: #fafafa;
     padding: 5px 10px;
   }
-;
+
+  .search-body {
+    overflow-y: auto;
+    max-height: 70vh;
+
+    //update scrollbar
+    //make thin
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+    //track
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    //handle
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+    }
+    //handle on hover
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+  }
 
   .search-bottom {
-    background-color: #eee;
+    background-color: #fafafa;
     padding: 5px 10px;
     text-align: center;
   }

@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex" @click="onItemClick">
+  <div class="d-flex cursor-pointer" @click="onItemClick">
     <div class="image-container">
       <img :src="computeImageUrl(item.image)">
     </div>
