@@ -50,11 +50,11 @@ export default {
   ],
 
   env: {
-    BASE_URL: process.env.BASE_URL,
+    BASE_URL: process.env.BASE_URL || 'https://app.bizmahbd.com',
   },
 
   axios: {
-    baseURL: process.env.BASE_URL + '/api',
+    baseURL: (process.env.BASE_URL || 'https://app.bizmahbd.com') + '/api',
     common: {
       'Accept': 'application/json'
     }
