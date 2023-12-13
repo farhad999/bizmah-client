@@ -52,6 +52,14 @@
 
     </div>
 
+    <!-- Short Description -->
+
+    <div v-if="product.short_description" class="pb-2">
+      <p>
+        {{ product.short_description }}
+      </p>
+    </div>
+
     <div
       class="variation-container"
       v-if="product.variations.length > 0"
