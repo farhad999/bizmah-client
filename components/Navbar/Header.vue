@@ -66,7 +66,7 @@
       <div class="container-fluid">
         <ul class="list">
           <li v-for="category in categories" class="menu-item">
-            <span>{{ category.name }}</span>
+            <nuxt-link :to="'/category/'+category.slug">{{ category.name }}</nuxt-link>
             <div class="mega-menu row" v-if="category.children && category.children.length">
               <div class="col-md-9">
                 <ul class="row">
@@ -247,7 +247,7 @@ export default {
     .menu-item {
       padding: 10px 20px;
       //position: relative;
-      span {
+      & > a {
         font-family: VisbyCF-Medium;
       }
 
