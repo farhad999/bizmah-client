@@ -11,7 +11,7 @@
         />
       </div>
     </template>
-    <div class="col-12">
+    <div class="col-12" v-else>
       <div class="py-5">
         <div class="text-center font-visby-bold text-18">No Products Found</div>
       </div>
