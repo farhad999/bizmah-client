@@ -15,7 +15,9 @@
 
         </div>
 
-        <div class="badge discount">60% Off</div>
+        <div class="badge discount" v-if="discount>0">
+          {{discount}}% Off
+        </div>
         <div class="quick-view-btn">
           <button @click.prevent="$store.dispatch('product/openQuickView', product)">Quick View</button>
         </div>
@@ -25,8 +27,8 @@
       <div class="product-card-bottom">
         <div class="product-title text-capitalize">{{ product.name }}</div>
         <div class="price-box">
-          <span class="old-price">{{ product.min_old_price }}</span>
-          <span class="new-price">{{ product.min_price }}</span>
+          <span class="old-price" v-if="product.min_old_price">{{ product.min_old_price |priceFormat }}</span>
+          <span class="new-price">{{ product.min_price |priceFormat }}</span>
         </div>
       </div>
 
@@ -46,6 +48,14 @@ export default {
   props: {
     product: {
       type: Object | Number,
+    }
+  },
+  computed: {
+    discount() {
+      if (this.product.min_old_price) {
+        return Math.round(((this.product.min_old_price - this.product.min_price) / this.product.min_old_price) * 100);
+      }
+      return 0;
     }
   }
 }
