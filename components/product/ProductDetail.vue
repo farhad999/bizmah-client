@@ -41,12 +41,12 @@
 
     <div class="price-box my-2">
       <div v-if="selectedProductVariant">
-        <span class="old-price">{{ selectedProductVariant.old_price | priceFormat }}</span>
+        <span class="old-price" v-if="selectedProductVariant.old_price">{{ selectedProductVariant.old_price | priceFormat }}</span>
         <span class="new-price">{{ selectedProductVariant.price | priceFormat }}</span>
       </div>
 
       <div v-else>
-        <span class="old-price">{{ prices[2] | priceFormat }}</span>
+        <span class="old-price" v-if="prices[2]">{{ prices[2] | priceFormat }}</span>
         <span class="new-price">{{ prices[0] | priceFormat }}</span>
       </div>
 
