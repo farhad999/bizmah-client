@@ -5,7 +5,7 @@ Vue.filter('priceFormat', function (value, size = 0) {
 
   let number = parseFloat(value);
 
-  return 'BDT ' + number.toLocaleString();
+  return '৳' + number.toLocaleString();
 })
 
 Vue.filter('capitalize', function (value) {
