@@ -248,7 +248,7 @@ export default {
       padding: 10px 20px;
       //position: relative;
       & > a {
-        font-family: VisbyCF-Medium;
+        font-weight: 600;
       }
 
       cursor: pointer;
@@ -288,7 +288,6 @@ export default {
               font-size: 15px;
               padding: 15px 0;
               margin: 5px 0;
-              font-family: VisbyCF-Light;
             }
           }
         }
