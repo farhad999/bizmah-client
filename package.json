@@ -16,7 +16,7 @@
     "core-js": "^3.25.3",
     "lodash": "^4.17.21",
     "nuxt": "^2.15.8",
-    "sass": "1.32",
+    "sass": "1.65.*",
     "sass-loader": "10.1",
     "swiper": "5.4",
     "vee-validate": "3.*",
