@@ -199,21 +199,6 @@ footer {
   }
 }
 
-//swiper button
-
-.custom-swiper {
-  .swiper-button-next, .swiper-button-prev {
-    background-color: #dbdbdb;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-
-    &:after {
-      font-size: 20px;
-      color: #000;
-    }
-  }
-}
 
 .horizontal-bar {
   height: 4px;
@@ -860,6 +845,120 @@ section.breadcrumb-custom {
 
 }
 
-.cursor-pointer{
+.cursor-pointer {
   cursor: pointer;
+}
+
+//swiper carousel
+
+.swiper-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.swiper-carousel {
+
+  overflow: hidden;
+
+
+  @for $i from 0 through 5 {
+
+    $value: ($i * 5) * 1px;
+
+    &.space-#{$i} {
+      margin-left: -$value;
+      margin-right: -$value;
+
+      .swiper-slide {
+        padding-left: $value;
+        padding-right: $value;
+      }
+
+    }
+  }
+
+  .swiper-container {
+    .swiper-wrapper {
+      overflow-x: unset;
+    }
+  }
+
+  .swiper-wrapper {
+    overflow-x: hidden;
+  }
+
+  .swiper-slide {
+    padding: 0 5px;
+  }
+
+  @for $i from 1 through 8 {
+
+    $value: calc(100% / $i);
+
+    .swiper-wrapper.items-#{$i} {
+      .swiper-slide {
+        width: $value;
+      }
+    }
+
+    @media (min-width: 576px) {
+      .swiper-wrapper.items-sm-#{$i} {
+        .swiper-slide {
+          width: $value;
+        }
+      }
+
+    }
+
+
+    @media (min-width: 768px) {
+      .swiper-wrapper.items-md-#{$i} {
+        .swiper-slide {
+          width: $value;
+        }
+      }
+
+    }
+
+    @media (min-width: 968px) {
+      .swiper-wrapper.items-lg-#{$i} {
+        .swiper-slide {
+          width: $value;
+        }
+      }
+
+    }
+
+    @media (min-width: 1200px) {
+      .swiper-wrapper.items-xl-#{$i} {
+        .swiper-slide {
+          width: $value;
+        }
+      }
+    }
+  }
+
+  //swiper buttons
+
+  .swiper-button-next, .swiper-button-prev {
+    visibility: hidden;
+    background-color: #dbdbdb;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+
+    &:after {
+      font-size: 20px;
+      color: #000;
+    }
+  }
+
+  //show when container available
+
+  .swiper-container {
+    .swiper-button-next, .swiper-button-prev {
+      visibility: visible;
+    }
+  }
+
 }

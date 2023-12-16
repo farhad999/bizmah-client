@@ -42,7 +42,8 @@ export default {
     return {
       sliderOptions: {
         //slidesPerView: 1,
-        slidesPerView: 'auto'
+        slidesPerView: 'auto',
+        navigation: true,
       },
     }
   },
