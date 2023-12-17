@@ -10,7 +10,7 @@ export default {
         loading: false,
         pagination: {
           page: 1,
-          perPage: 12,
+          perPage: 24,
         },
         hasMore: true,
       },
