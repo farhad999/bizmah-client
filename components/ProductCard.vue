@@ -4,19 +4,21 @@
       <!-- Product Media -->
       <div class="product-media">
         <div>
-          <img :src="computeImageUrl(product.image)" alt="product-image"
-               class="primary-image"
+          <nuxt-img :src="computeImageUrl(product.image)" alt="product-image"
+                    sizes="sm:100px md:200px"
+                    class="primary-image"
+                    provider="ipx"
           />
 
-          <img :src="computeImageUrl(product.secondary_image)" alt="secondary-image"
-               v-if="product.secondary_image"
-               class="secondary-image"
+          <nuxt-img :src="computeImageUrl(product.secondary_image)" alt="secondary-image"
+                    v-if="product.secondary_image"
+                    class="secondary-image"
           />
 
         </div>
 
         <div class="badge discount" v-if="discount>0">
-          {{discount}}% Off
+          {{ discount }}% Off
         </div>
         <div class="quick-view-btn">
           <button @click.prevent="$store.dispatch('product/openQuickView', product)">Quick View</button>
@@ -40,10 +42,11 @@
 import {computeImageUrl} from "../utils/common";
 
 export default {
-  methods: {computeImageUrl,
-  openQuick(){
+  methods: {
+    computeImageUrl,
+    openQuick() {
 
-  }
+    }
   },
   props: {
     product: {

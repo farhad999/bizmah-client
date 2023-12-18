@@ -88,8 +88,10 @@
                 </ul>
               </div>
               <div class="col-md-3 overflow-hidden">
-                <img :src="computeImageUrl(category.image)"
-                class="w-100"
+                <nuxt-img :src="computeImageUrl(category.image)"
+                          class="w-100"
+                          :alt="category.name"
+                          sizes="sm:100vw"
                 />
               </div>
             </div>
@@ -158,7 +160,7 @@ export default {
     height: 80px;
   }
 
-  .mobile-toggle-btn{
+  .mobile-toggle-btn {
     background-color: transparent;
     border: none;
     color: white;

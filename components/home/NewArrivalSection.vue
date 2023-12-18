@@ -5,7 +5,7 @@
     </div>
     <div class="row">
       <div v-for="product in products"
-           :key="product"
+           :key="'latest_' + product.id"
            class="col-md-3 col-sm-4 col-6"
       >
         <ProductCard
@@ -28,17 +28,17 @@ import ProductCard from "../ProductCard.vue";
 
 export default {
   components: {ProductCard},
-  async fetch(){
+  async fetch() {
     await this.$store.dispatch('product/getNewArrivals')
   },
   computed: {
     products() {
       return this.$store.state.product.newArrivals.products;
     },
-    loading(){
+    loading() {
       return this.$store.state.product.newArrivals.loading
     },
-    hasMore(){
+    hasMore() {
       return this.$store.state.product.newArrivals.hasMore
     }
   },

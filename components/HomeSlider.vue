@@ -5,11 +5,12 @@
       :options="homeSlider"
     >
       <div class="home-slide swiper-slide" v-for="(slide,index) in slides" :key="index">
-        <img
+        <nuxt-picture
           class="slide-bg"
           :src="computeImageUrl(slide.image)"
           alt="slider image"
           loading="lazy"
+          sizes="sm:100vw md:100vw lg:100vw xl:100vw"
         />
       </div>
     </CustomSwiper>

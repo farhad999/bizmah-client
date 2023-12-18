@@ -10,7 +10,9 @@
                class="featured-category-item swiper-slide">
             <nuxt-link :to="`/category/${cat.slug}`">
               <div class="category-image-container">
-                <img :src="computeImageUrl(cat.image)" alt="cat"/>
+                <nuxt-img :src="computeImageUrl(cat.image)" alt="cat"
+                sizes="sm:150px"
+                />
               </div>
               <div class="category-title">{{ cat.name }}</div>
             </nuxt-link>

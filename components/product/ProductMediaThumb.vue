@@ -5,9 +5,10 @@
          @click="()=>onThumbClick(index)"
          :key="index"
          v-for="(image,index) in images">
-      <img :src="image.image_url" alt=""
-           class="w-100"
-      >
+      <nuxt-img :src="image.image_url" alt=""
+                class="w-100"
+                sizes="sm:150px"
+      />
     </div>
   </div>
 </template>

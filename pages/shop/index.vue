@@ -4,9 +4,10 @@
     <div class="row">
       <div class="col-12" v-if="category">
         <div class="px-md-2">
-          <img :src="computeImageUrl(category.banner_image)" alt="banner_image"
-               class="w-100"
-               v-if="category.banner_image"
+          <nuxt-img :src="computeImageUrl(category.banner_image)" alt="banner_image"
+                    sizes="sm:100vw md:100vw xl:100vw"
+                    class="w-100"
+                    v-if="category.banner_image"
           />
         </div>
         <hr/>
@@ -21,7 +22,9 @@
             >
               <nuxt-link :to="`/category/${cat.slug}`">
                 <div class="category-image-container">
-                  <img :src="computeImageUrl(cat.image)" alt="cat"/>
+                  <nuxt-img :src="computeImageUrl(cat.image)" alt="cat"
+                  sizes="sm:200px"
+                  />
                 </div>
                 <div class="category-title">{{ cat.name }}</div>
               </nuxt-link>
@@ -32,7 +35,7 @@
       </div>
 
       <div class="col-12 text-center py-4" v-if="search">
-        <h4>Search Results For <strong>"{{search}}"</strong></h4>
+        <h4>Search Results For <strong>"{{ search }}"</strong></h4>
         <hr/>
       </div>
     </div>

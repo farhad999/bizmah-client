@@ -1,7 +1,9 @@
 <template>
   <div class="d-flex cursor-pointer" @click="onItemClick">
     <div class="image-container">
-      <img :src="computeImageUrl(item.image)">
+      <nuxt-img :src="computeImageUrl(item.image)"
+      sizes="sm:100px"
+      />
     </div>
     <div>
       <div class="product-title">{{ item.name }}</div>

@@ -1,7 +1,12 @@
 <template>
   <div class="cart-item">
-    <div class="product-image-container"><img
-      :src="product.image" alt="product image">
+    <div class="product-image-container">
+      <nuxt-img
+        :src="product.image"
+        alt="product image"
+        sizes="sm:100px"
+        v-if="product.image"
+      />
     </div>
 
     <div class="cart-info">

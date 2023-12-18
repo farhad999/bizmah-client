@@ -36,7 +36,7 @@ export default {
     {src: '~/plugins/index.js', ssr: false},
     {src: '~/plugins/filters.js', ssr: true},
     {src: '~/plugins/veevalidate.js', ssr: false},
-    {src: '~/plugins/axios.js'},
+    {src: '~/plugins/axios.js'}
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -51,6 +51,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
     "vue-toastification/nuxt",
+    '@nuxt/image',
   ],
 
   env: {
@@ -118,7 +119,30 @@ export default {
     }
   },
 
+  image: {
+    baseUrl: process.env.BASE_URL,
+    domains: ['app.bizmahbd.com'],
+    provider: 'ipx',
+    ipx: {},
+    presets: {
+      thumb: {
+        modifiers: {
+          format: 'webp',
+          width: 200,
+          height: 200,
+        },
+      },
+    },
+    alias: {
+      app: 'http://localhost:8000',
+    },
+  },
+  serverMiddleware: {
+    '/_ipx': '~/plugins/ipx.js',
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {}
+  build: {},
+  ssr:true,
+  target: 'server',
 }
