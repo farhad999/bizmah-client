@@ -1,126 +1,127 @@
 <template>
   <div>
-    <div class="header-middle">
+    <div class="fixed-top">
+      <div class="header-middle">
 
-      <div class="container-fluid">
+        <div class="container-fluid">
 
-        <div class="header-middle-content">
+          <div class="header-middle-content">
 
-          <!--    Phn and Search     -->
-          <div class="d-flex align-items-center">
+            <!--    Phn and Search     -->
+            <div class="d-flex align-items-center">
 
-            <button @click="$emit('openMobileMenu')"
-                    class="d-md-none mr-2 mobile-toggle-btn"
-            >
-              <i class="fa fa-bars"></i>
-            </button>
+              <button @click="$emit('openMobileMenu')"
+                      class="d-md-none mr-2 mobile-toggle-btn"
+              >
+                <i class="fa fa-bars"></i>
+              </button>
 
-            <div class="mobile-brand d-md-none">
+              <div class="mobile-brand d-md-none">
+                <nuxt-link to="/">
+                  <img
+                    src="assets/images/logo.png" alt="Bizmah">
+                </nuxt-link>
+              </div>
+
+              <div class="mr-5 d-none d-lg-flex align-items-center">
+                <i class="fa-brands fa-whatsapp nav-icon pr-2"></i>
+                <i class="fa fa-phone nav-icon"></i>
+                <Search/>
+              </div>
+            </div>
+
+            <!-- 	Logo     -->
+            <div class="nav-brand d-none d-md-block">
               <nuxt-link to="/">
                 <img
                   src="assets/images/logo.png" alt="Bizmah">
               </nuxt-link>
             </div>
 
-            <div class="mr-5 d-none d-lg-flex align-items-center">
+            <div class="d-flex align-items-center">
+
+              <button class="cart-btn" @click="cartStatus = true ">
+                <span class="badge badge-pill badge-primary">{{ itemCount }}</span>
+                <i class="fa fa-shopping-cart nav-icon"></i>
+              </button>
+              <div class="ml-3">
+                <nuxt-link v-if="$auth.loggedIn" to="/account">
+                  <i class="fa fa-user nav-icon"></i>
+                </nuxt-link>
+
+                <nuxt-link v-else to="/login">
+                  <i class="fa fa-sign-in-alt nav-icon"></i>
+                </nuxt-link>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!--Header categories -->
+      <div class="category-desktop">
+        <div class="container-fluid">
+          <ul class="list">
+            <li v-for="category in categories" class="menu-item">
+              <nuxt-link :to="'/category/'+category.slug">{{ category.name }}</nuxt-link>
+              <div class="mega-menu row" v-if="category.children && category.children.length">
+                <div class="col-md-9">
+                  <ul class="row">
+                    <li v-for="child in category.children" class="sub-item col-md-3">
+                      <nuxt-link :to="`/category/${category.slug}/${child.slug}`">
+                        {{ child.name }}
+                      </nuxt-link>
+                      <ul v-if="child.children && child.children.length"
+                          class="sub-sub-menu"
+                      >
+                        <li v-for="item in child.children" class="sub-sub-menu-item">
+                          <nuxt-link :to="`/category/${category.slug}/${child.slug}/${item.slug}`">{{
+                              item.name
+                            }}
+                          </nuxt-link>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-3 overflow-hidden">
+                  <nuxt-img :src="computeImageUrl(category.image)"
+                            class="w-100"
+                            :alt="category.name"
+                            sizes="sm:100vw"
+                  />
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="header-bottom d-lg-none">
+
+        <div class="container-fluid">
+          <div class="content">
+            <div class="align-items-center mr-2 d-none d-md-flex">
               <i class="fa-brands fa-whatsapp nav-icon pr-2"></i>
               <i class="fa fa-phone nav-icon"></i>
-              <Search/>
-            </div>
-          </div>
-
-          <!-- 	Logo     -->
-          <div class="nav-brand d-none d-md-block">
-            <nuxt-link to="/">
-              <img
-                src="assets/images/logo.png" alt="Bizmah">
-            </nuxt-link>
-          </div>
-
-          <div class="d-flex align-items-center">
-
-            <button class="cart-btn" @click="cartStatus = true ">
-              <span class="badge badge-pill badge-primary">{{ itemCount }}</span>
-              <i class="fa fa-shopping-cart nav-icon"></i>
-            </button>
-            <div class="ml-3">
-              <nuxt-link v-if="$auth.loggedIn" to="/account">
-                <i class="fa fa-user nav-icon"></i>
-              </nuxt-link>
-
-              <nuxt-link v-else to="/login">
-                <i class="fa fa-sign-in-alt nav-icon"></i>
-              </nuxt-link>
             </div>
 
+            <Search/>
+
+            <div class="checkout d-none d-md-block">
+              <nuxt-link to="/checkout">Checkout</nuxt-link>
+            </div>
           </div>
 
         </div>
 
       </div>
-
     </div>
-
-    <!--Header categories -->
-    <div class="category-desktop">
-      <div class="container-fluid">
-        <ul class="list">
-          <li v-for="category in categories" class="menu-item">
-            <nuxt-link :to="'/category/'+category.slug">{{ category.name }}</nuxt-link>
-            <div class="mega-menu row" v-if="category.children && category.children.length">
-              <div class="col-md-9">
-                <ul class="row">
-                  <li v-for="child in category.children" class="sub-item col-md-3">
-                    <nuxt-link :to="`/category/${category.slug}/${child.slug}`">
-                      {{ child.name }}
-                    </nuxt-link>
-                    <ul v-if="child.children && child.children.length"
-                        class="sub-sub-menu"
-                    >
-                      <li v-for="item in child.children" class="sub-sub-menu-item">
-                        <nuxt-link :to="`/category/${category.slug}/${child.slug}/${item.slug}`">{{
-                            item.name
-                          }}
-                        </nuxt-link>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-              <div class="col-md-3 overflow-hidden">
-                <nuxt-img :src="computeImageUrl(category.image)"
-                          class="w-100"
-                          :alt="category.name"
-                          sizes="sm:100vw"
-                />
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-    </div>
-
-    <div class="header-bottom d-lg-none">
-
-      <div class="container-fluid">
-        <div class="content">
-          <div class="align-items-center mr-2 d-none d-md-flex">
-            <i class="fa-brands fa-whatsapp nav-icon pr-2"></i>
-            <i class="fa fa-phone nav-icon"></i>
-          </div>
-
-          <Search/>
-
-          <div class="checkout d-none d-md-block">
-            <nuxt-link to="/checkout">Checkout</nuxt-link>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
     <Cart @closeCart="cartStatus = false"
           :cart-open="cartStatus"
     />
