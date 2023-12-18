@@ -3,10 +3,10 @@
     <div class="row">
       <div class="col-md-6">
 
-        <div class="d-flex">
+        <div class="row">
 
           <!-- Thumb -->
-          <div style="width: 150px" class="pr-2">
+          <div class="col-2">
             <div class="mb-2 w-100 overflow-hidden"
                  @click="thumbIndex = index"
                  :key="index"
@@ -20,9 +20,12 @@
 
           </div>
 
-          <ProductMedia :images="images" :thumbIndex="thumbIndex"
-                        hide-thumb
-          />
+          <div class="col-10">
+            <ProductMedia :images="images" :thumbIndex="thumbIndex"
+                          hide-thumb
+            />
+          </div>
+
 
         </div>
 

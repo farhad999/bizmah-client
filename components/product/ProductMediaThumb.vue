@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="mb-2 media-thumb overflow-hidden"
-         :class="[direction === 'left' ? 'col-sm-3' : 'col-md-3 col-sm-2 col-3']"
+         :class="[direction === 'left' ? 'col-sm-3' : 'col-md-2 col-sm-2 col-3']"
          @click="()=>onThumbClick(index)"
          :key="index"
          v-for="(image,index) in images">

@@ -11,12 +11,10 @@
       </div>
 
       <div class="swiper-pagination" slot="pagination"></div>
-        <template v-if="sliderOption.navigation">
+      <template v-if="sliderOption.navigation">
         <div class="swiper-button-prev" slot="button-prev"></div>
         <div class="swiper-button-next" slot="button-next"></div>
       </template>
-    </div>
-
     </div>
   </div>
 </template>
@@ -28,10 +26,6 @@ const defaultOption = {
   slidesPerView: 'auto',
   watchSlidesVisibility: true,
   clickable: true,
-  navIcon: {
-    prev: 'icon-angle-left',
-    next: 'icon-angle-right'
-  },
   isCustomNav: false
 };
 export default {

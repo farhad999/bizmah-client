@@ -8,7 +8,9 @@
       <div class="swiper-slide" :key="index" v-for="(image, index) in images">
         <nuxt-img img :src="image.image_url" alt="product-image"
                   class="w-100"
+                  sizes="sm:100vw md:100vw lg:100vw"
                   v-if="image.image_url"
+                  lazy
         />
       </div>
     </CustomSwiper>
@@ -47,7 +49,10 @@ export default {
       sliderOptions: {
         //slidesPerView: 1,
         slidesPerView: 'auto',
-        navigation: true,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
       },
     }
   },
