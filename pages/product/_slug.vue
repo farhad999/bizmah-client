@@ -19,10 +19,13 @@
             <ProductMediaThumb
               :images="images" :product="product" direction="left"
               @onThumbClick="(index)=>thumbIndex = index"
+              :loading="loading"
             />
           </div>
           <div class="d-none d-lg-block">
-            <ProductDescription :product="product"/>
+            <ProductDescription :product="product"
+                                :loading="loading"
+            />
           </div>
         </div>
 
@@ -32,14 +35,20 @@
             :images="images"
             :thumbIndex="thumbIndex"
             @onThumbClick="(index)=>thumbIndex=index"
+            :loading="loading"
           />
         </div>
 
         <div class="col-lg-4">
-          <ProductDetail v-if="product" :product="product"/>
+          <ProductDetail
+            :product="product"
+            :loading="loading"
+          />
         </div>
         <div class="d-lg-none col-12">
-          <ProductDescription :product="product"/>
+          <ProductDescription :product="product"
+                              :loading="loading"
+          />
         </div>
 
       </div>
@@ -77,6 +86,7 @@ export default {
       product: '',
       thumbIndex: 0,
       relatedProducts: [],
+      loading: true,
     }
   },
   computed: {
@@ -91,7 +101,7 @@ export default {
         image_url: computeImageUrl(this.product.image)
       }];
 
-      if(this.product.secondary_image){
+      if (this.product.secondary_image) {
         thumbImage.push({
           variation_id: null,
           image_url: computeImageUrl(this.product.secondary_image)
@@ -118,7 +128,9 @@ export default {
   async fetch() {
     let slug = this.$route.params.slug;
     try {
+      this.loading = true
       this.product = await this.$axios.$get('/products/' + slug);
+      this.loading = false;
       this.relatedProducts = await this.$axios.$get('/get-related-products/' + slug)
     } catch (e) {
 

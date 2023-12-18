@@ -6,92 +6,85 @@
       </button>
     </div>
 
-    <h5 class="product-title">{{ product.name }}</h5>
-
-    <!--    <div class="price-box"
-        >
-          <div class="me-2">
-          <span class="old-price" v-if="prices[2] === prices[3]">
-            {{ prices[2] | priceFormat }}
-          </span>
-
-            <span v-else class="old-price">
-            {{ prices[2] | priceFormat }} - {{ prices[3] | priceFormat }}
-          </span>
-          </div>
-
-          <div>
-          <span class="new-price" v-if="prices[0] === prices[1]">
-            {{ prices[0] | priceFormat }}
-          </span>
-
-            <span v-else class="new-price">
-            {{ prices[0] | priceFormat }} - {{ prices[1] | priceFormat }}
-          </span>
-          </div>
+    <div v-if="product && !loading">
+      <h5 v-if="!loading" class="product-title">{{ product.name }}</h5>
 
 
-          &lt;!&ndash;            <span :class="[prices[2] ? 'old-price' : 'new-price']" v-if="prices[0] === prices[1]">{{
-                          prices[0] | priceFormat
-                        }}</span>
-                <span :class="[prices[2] ? 'old-price' : 'new-price']" v-else>{{
-                    prices[0] | priceFormat
-                  }} &ndash; {{ prices[1] | priceFormat }}</span>&ndash;&gt;
-        </div>-->
+      <div class="price-box my-2">
+        <div v-if="selectedProductVariant">
+          <span class="old-price"
+                v-if="selectedProductVariant.old_price">{{ selectedProductVariant.old_price | priceFormat }}</span>
+          <span class="new-price">{{ selectedProductVariant.price | priceFormat }}</span>
+        </div>
 
-    <div class="price-box my-2">
-      <div v-if="selectedProductVariant">
-        <span class="old-price" v-if="selectedProductVariant.old_price">{{ selectedProductVariant.old_price | priceFormat }}</span>
-        <span class="new-price">{{ selectedProductVariant.price | priceFormat }}</span>
+        <div v-else>
+          <span class="old-price" v-if="prices[2]">{{ prices[2] | priceFormat }}</span>
+          <span class="new-price">{{ prices[0] | priceFormat }}</span>
+        </div>
+
       </div>
 
-      <div v-else>
-        <span class="old-price" v-if="prices[2]">{{ prices[2] | priceFormat }}</span>
-        <span class="new-price">{{ prices[0] | priceFormat }}</span>
+      <!-- Short Description -->
+
+      <div v-if="product.short_description" class="pb-2">
+        <p>
+          {{ product.short_description }}
+        </p>
       </div>
 
-    </div>
-
-    <!-- Short Description -->
-
-    <div v-if="product.short_description" class="pb-2">
-      <p>
-        {{ product.short_description }}
-      </p>
-    </div>
-
-    <div
-      class="variation-container"
-      v-if="product.variations.length > 0"
-    >
       <div
-        :key="index"
-        class="variation-list"
-        v-for="(variation, index) in variations"
+        class="variation-container"
+        v-if="product.variations.length > 0"
       >
-        <div class="variation-title">{{ variation.key }}:</div>
-        <div class="variation-values">
-          <div
-            v-for="(item, index) in variation.values"
-            :key="'variant' + index"
-            @click="() => onClickVariation(variation.key, item)"
-            class="variant"
-            :class="[
+        <div
+          :key="index"
+          class="variation-list"
+          v-for="(variation, index) in variations"
+        >
+          <div class="variation-title">{{ variation.key }}:</div>
+          <div class="variation-values">
+            <div
+              v-for="(item, index) in variation.values"
+              :key="'variant' + index"
+              @click="() => onClickVariation(variation.key, item)"
+              class="variant"
+              :class="[
                             isVariationActive(variation.key, item)
                                 ? 'active'
                                 : '',
                         ]"
-          >
-            <a
-              class="d-flex justify-content-center align-items-center text-uppercase"
-              href="javascript:void(0)"
-            >{{ item }}</a
             >
+              <a
+                class="d-flex justify-content-center align-items-center text-uppercase"
+                href="javascript:void(0)"
+              >{{ item }}</a
+              >
+            </div>
           </div>
         </div>
+
       </div>
 
     </div>
+
+    <div v-else>
+      <div class="skeleton w-80 h-20 mb-2"></div>
+      <div class="skeleton w-30 h-14 mb-2"></div>
+
+      <div class="skeleton line w-100 mb-1"></div>
+      <div class="skeleton line w-50 mb-1"></div>
+
+      <div class="skeleton w-20 h-18 mb-2"></div>
+
+      <div class="d-flex">
+        <div v-for="(i, index) in [1, 2, 3]"
+             class="skeleton w-20 h-16 mr-1"
+        ></div>
+      </div>
+
+
+    </div>
+
     <div class="d-flex justify-content-between align-items-end">
       <div>
         <div class="variation-title">Quantity:</div>
@@ -142,6 +135,10 @@ export default {
   },
   props: {
     product: Object,
+    loading: {
+      type: Boolean,
+      default: false,
+    }
   },
   data: function () {
     return {
