@@ -5,7 +5,7 @@
       <div class="product-media">
         <div>
           <nuxt-img :src="computeImageUrl(product.image)" alt="product-image"
-                    sizes="sm:100px md:200px"
+                    sizes="sm:300px md:300px"
                     class="primary-image"
                     provider="ipx"
           />
@@ -13,6 +13,7 @@
           <nuxt-img :src="computeImageUrl(product.secondary_image)" alt="secondary-image"
                     v-if="product.secondary_image"
                     class="secondary-image"
+                    sizes="sm:400px md:400px"
           />
 
         </div>
