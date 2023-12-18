@@ -1,5 +1,5 @@
 <template>
-  <section class="py-4">
+  <section class="pb-2 pt-1">
     <CustomSwiper
       class="home-slider"
       :options="homeSlider"
