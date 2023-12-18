@@ -1,13 +1,15 @@
 <template>
   <div>
     <!-- Top Bar -->
-    <div class="top-bar">
+<!--    <div class="top-bar">
       <p>
         FREE SHIPPING FOR ORDERS ON AND ABOVE BDT2500 WITHIN Bangladesh
       </p>
-    </div>
+    </div>-->
     <Header @openMobileMenu="mobileMenuStatus = true"/>
-    <Nuxt/>
+    <div class="main">
+      <Nuxt/>
+    </div>
     <Footer/>
 
     <!-- Quick Product -->
