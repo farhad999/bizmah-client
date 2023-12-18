@@ -60,11 +60,6 @@
               Store Locator
             </a>
           </li>
-          <li>
-            <a href="/blogs/news" class="link link--text list-menu__item list-menu__item--link">
-              Limelight Trends
-            </a>
-          </li>
         </ul>
       </div>
     </div>
@@ -72,18 +67,13 @@
     <div class="footer-social">
       <ul class="social-list" role="list">
         <li class="list-social-item">
-          <a href="https://www.facebook.com/limelight.pret/" class="link social-facebook">
+          <a :href="config.facebook" target="_blank" class="link social-facebook">
             <i class="fa-brands fa-facebook"></i>
           </a>
         </li>
         <li class="list-social-item">
-          <a href="https://www.instagram.com/limelight.pret/" class="link social-instagram">
+          <a :href="config.instagram" target="_blank" class="link social-instagram">
             <i class="fa-brands fa-instagram"></i>
-          </a>
-        </li>
-        <li class="list-social-item">
-          <a href="https://www.youtube.com/limelightofficial" class="link social-youtube">
-            <i class="fa-brands fa-youtube"></i>
           </a>
         </li>
       </ul>

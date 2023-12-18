@@ -24,8 +24,8 @@
               </div>
 
               <div class="mr-5 d-none d-lg-flex align-items-center">
-                <i class="fa-brands fa-whatsapp nav-icon pr-2"></i>
-                <i class="fa fa-phone nav-icon"></i>
+<!--                <i class="fa-brands fa-whatsapp nav-icon pr-2"></i>
+                <i class="fa fa-phone nav-icon"></i>-->
                 <Search/>
               </div>
             </div>
