@@ -143,6 +143,13 @@ export default {
       //addressData: {},
     }
   },
+  watch: {
+    'address.customer_city': function (val) {
+      if (val) {
+        this.onSelectCity(val)
+      }
+    }
+  },
   methods: {
     async getAreas() {
       this.cityLoading = true;
@@ -162,11 +169,16 @@ export default {
         this.zones = [];
         return;
       }
-      this.zones = selected.zones.map(item => item.name.trim());
+      this.zones = selected ? selected.zones.map(item => item.name.trim()) : [];
     }
   },
   async mounted() {
+
     await this.getAreas();
+
+    if (this.address.customer_city) {
+      this.onSelectCity(this.address.customer_city)
+    }
 
     /*if (this.selectedAddress) {
       this.addressData.customer_name = this.selectedAddress.customer_name;
