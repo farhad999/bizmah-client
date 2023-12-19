@@ -84,6 +84,13 @@ export default {
       item.quantity = quantity;
     },
     SET_CART_PRODUCTS: function (state, value) {
+
+      let products = value;
+
+      state.items = state.items.filter(item => {
+        return products.find((el) => el.id === item.product_id && el.visibility && el.variations.find((variation) => variation.id === item.variation_id));
+      })
+
       state.cartProducts = value;
     }
 
