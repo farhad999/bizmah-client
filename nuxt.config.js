@@ -52,6 +52,7 @@ export default {
     '@nuxtjs/auth-next',
     "vue-toastification/nuxt",
     '@nuxt/image',
+    'nuxt-facebook-pixel-module',
   ],
 
   env: {
@@ -137,6 +138,15 @@ export default {
       app: 'http://localhost:8000',
     },
   },
+
+  facebook: {
+    /* module options */
+    track: 'PageView',
+    pixelId: '722557496190189',
+    autoPageView: true,
+    disabled: false
+  },
+
   serverMiddleware: {
     '/_ipx': '~/plugins/ipx.js',
   },
