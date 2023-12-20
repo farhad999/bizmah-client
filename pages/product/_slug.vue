@@ -81,6 +81,32 @@ import ProductCard from "~/components/ProductCard.vue";
 
 export default {
   components: {ProductCard, ProductDescription, ProductMediaThumb, ProductMedia, ProductDetail},
+  head() {
+    return {
+      title: this.product.name,
+      meta: [{
+        name: 'og:title',
+        hid: 'title',
+        content: this.product.name,
+      }, {
+        hid: 'description',
+        name: 'description',
+        content: this.product.short_description,
+      },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          content: this.product.short_description,
+        },
+        {
+          hid: 'image',
+          name: 'og:image',
+          property: 'og:image',
+          content: computeImageUrl(this.product.image)
+        }
+      ]
+    }
+  },
   data() {
     return {
       product: '',
