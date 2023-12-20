@@ -25,35 +25,10 @@
         <h2 class="footer-title">Customer Care</h2>
 
         <ul class="footer-menu">
-          <li>
-            <a href="/pages/shipping-handling" class="link link--text list-menu__item list-menu__item--link">
-              Shipping and Handling
-            </a>
-          </li>
-          <li>
-            <a href="/pages/exchange-policy" class="link link--text list-menu__item list-menu__item--link">
-              Exchange Policy
-            </a>
-          </li>
-          <li>
-            <a href="/pages/order-cancellation-policy" class="link link--text list-menu__item list-menu__item--link">
-              Order Cancellation Policy
-            </a>
-          </li>
-          <li>
-            <a href="/pages/privacy-policy" class="link link--text list-menu__item list-menu__item--link">
-              Privacy Policy
-            </a>
-          </li>
-          <li>
-            <a href="/pages/terms-of-use" class="link link--text list-menu__item list-menu__item--link">
-              Terms of Use
-            </a>
-          </li>
-          <li>
-            <a href="/pages/faq-s" class="link link--text list-menu__item list-menu__item--link">
-              FAQ’s
-            </a>
+          <li v-for="(menu, index) in config.footerMenu">
+            <nuxt-link :to="menu.link" class="link">
+              {{menu.title}}
+            </nuxt-link>
           </li>
         </ul>
       </div>
@@ -62,24 +37,14 @@
         <h2 class="footer-title">Information</h2>
         <ul class="footer-menu">
           <li>
-            <a href="/pages/about-us-1" class="link">
+            <nuxt-link to="/page/about-us" class="link">
               About Us
-            </a>
+            </nuxt-link>
           </li>
           <li>
-            <a href="/pages/contact-us" class="link">
+            <nuxt-link to="/page/contact-us" class="link">
               Contact Us
-            </a>
-          </li>
-          <li>
-            <a href="/pages/careers" class="link link--text list-menu__item list-menu__item--link">
-              Careers
-            </a>
-          </li>
-          <li>
-            <a href="/pages/store-locator" class="link link--text list-menu__item list-menu__item--link">
-              Store Locator
-            </a>
+            </nuxt-link>
           </li>
         </ul>
       </div>
