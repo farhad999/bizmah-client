@@ -144,7 +144,7 @@ export default {
     track: 'PageView',
     pixelId: '722557496190189',
     autoPageView: true,
-    disabled: false
+    disabled: process.env.NODE_ENV === 'development'
   },
 
   serverMiddleware: {
