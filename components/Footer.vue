@@ -1,8 +1,29 @@
 <template>
   <footer class="footer color-background-1 gradient">
-    <div class="footer-top row">
-      <div class="col-6">
+    <div class="footer-top row my-4">
+
+      <div class="col-md-4 col-sm-6 mt-2 mt-md-0">
+        <h2 class="footer-title">Contact</h2>
+        <div>
+          <p class="mb-2">
+            <strong>Address:</strong> {{ config.address }}</p>
+          <p class="mb-2"><strong>Mobile:</strong>
+            <a :href="'tel:'+config.mobile" class="text-underline">{{ config.mobile }}</a>
+          </p>
+          <p class="mb-2"><strong>Email: </strong>
+            <a :href="'mailto:'+config.email"
+            class="text-underline"
+            >{{ config.email }}</a>
+          </p>
+          <p class="mb-2"><strong>Whatsapp :</strong>
+            <a :href="'https://wa.me/'+config.mobile" class="text-underline">{{ config.mobile }}</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 mt-2 mt-md-0">
         <h2 class="footer-title">Customer Care</h2>
+
         <ul class="footer-menu">
           <li>
             <a href="/pages/shipping-handling" class="link link--text list-menu__item list-menu__item--link">
@@ -37,7 +58,7 @@
         </ul>
       </div>
 
-      <div class="col-6">
+      <div class="col-md-4 col-sm-6 mt-2 mt-md-0">
         <h2 class="footer-title">Information</h2>
         <ul class="footer-menu">
           <li>
@@ -74,6 +95,11 @@
         <li class="list-social-item">
           <a :href="config.instagram" target="_blank" class="link social-instagram">
             <i class="fa-brands fa-instagram"></i>
+          </a>
+        </li>
+        <li class="list-social-item">
+          <a :href="'https://wa.me/'+ config.mobile" target="_blank" class="link social-whatsapp">
+            <i class="fa-brands fa-whatsapp"></i>
           </a>
         </li>
       </ul>
@@ -118,7 +144,7 @@
     </div>
 
     <div class="text-center font-weight-thin">
-      <small>© 2023, <a href="/">{{ config.app}}</a></small>
+      <small>© 2023, <a href="/">{{ config.app }}</a></small>
     </div>
 
   </footer>

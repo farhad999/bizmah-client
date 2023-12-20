@@ -4,5 +4,5 @@ export default {
   instagram: 'https://www.instagram.com/bizmahbd.official/',
   mobile: '+8801956423155',
   email: 'bizmahbd@gmail.com',
-  address: 'Address,  Sector 09, Uttara,Dhaka Bangladesh ',
+  address: 'Sector 09, Uttara,Dhaka Bangladesh',
 }
