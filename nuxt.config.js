@@ -8,8 +8,19 @@ export default {
     meta: [
       {charset: 'utf-8'},
       {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+      {
+        hid: 'title',
+        name: 'title',
+        content: 'BizmahBD -  Redefines your Elegance'
+      },
       {hid: 'description', name: 'description', content: 'Bizmah BD redefines your Elegance'},
-      {name: 'format-detection', content: 'telephone=no'}
+      {name: 'format-detection', content: 'telephone=no'},
+      {
+        hid: 'keywords',
+        name: 'keywords',
+        content: 'Online Shopping in Bangladsh, online Shopping store,Online Shopping Site,Buy Online,Shop Online,Online Shopping,Bizmah, bizmahbd, Bizmah Lifestyle'
+      },
+      
     ],
     link: [
       {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
