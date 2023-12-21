@@ -20,7 +20,7 @@ export default {
         name: 'keywords',
         content: 'Online Shopping in Bangladsh, online Shopping store,Online Shopping Site,Buy Online,Shop Online,Online Shopping,Bizmah, bizmahbd, Bizmah Lifestyle'
       },
-      
+
     ],
     link: [
       {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
@@ -153,7 +153,8 @@ export default {
   facebook: {
     /* module options */
     track: 'PageView',
-    pixelId: '722557496190189',
+    //pixelId: '722557496190189',
+    pixelId: '670381621639471',
     autoPageView: true,
     disabled: process.env.NODE_ENV === 'development'
   },
