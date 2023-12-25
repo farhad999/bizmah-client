@@ -253,10 +253,20 @@ export default {
         payment_method: this.selectedPayment,
       };
 
+
+
       try {
         let data = await this.$axios.$post(`/orders`, payloadData);
 
         if (data.status === 'success') {
+
+          this.$fb.track('Purchase', {
+            currency: 'BDT',
+            value: this.totalAmount,
+            content_ids: this.cartItems.map((item) => item.id),
+            content_type: 'product',
+            content_name: 'checkout page',
+          });
 
           //order successful
           this.$toast.success(data.message);
@@ -289,6 +299,17 @@ export default {
         this.address = JSON.parse(localStorage.getItem('address'));
       }
     }
+
+    if(process.browser){
+      this.$fb.track('InitiateCheckout', {
+        currency: 'BDT',
+        value: this.totalAmount,
+        content_ids: this.cartItems.map((item) => item.id),
+        content_type: 'product',
+        content_name: 'checkout page',
+      });
+    }
+
   }
 };
 </script>

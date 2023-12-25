@@ -97,6 +97,7 @@ export default {
   },
   actions: {
     async addToCart({dispatch, commit, rootState}, payload) {
+
       commit('ADD_TO_CART', payload)
 
       //push to server

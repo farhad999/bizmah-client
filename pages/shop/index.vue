@@ -288,6 +288,11 @@ export default {
   created() {
     //console.log({route: this.$route});
     this.applyParams(this.$route.query);
+  },
+  mounted() {
+    if (process.browser) {
+      this.$fb.track('ViewContent')
+    }
   }
 };
 </script>

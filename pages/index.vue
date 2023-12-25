@@ -21,18 +21,23 @@ export default {
     FeaturedCategories,
     HomeSlider
   },
-  data(){
+  data() {
     return {
       user: null,
     }
   },
   computed: {
-    slides(){
+    slides() {
       return this.$store.state.common.homeSlides;
     }
   },
-  async fetch(){
+  async fetch() {
     await this.$store.dispatch('common/getHomeSlides')
+  },
+  mounted() {
+    if (process.browser) {
+      this.$fb.track('ViewContent');
+    }
   }
 }
 </script>

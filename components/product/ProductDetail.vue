@@ -226,6 +226,14 @@ export default {
         quantity: this.qty,
       };
 
+      this.$fb.track('AddToCart', {
+        content_name: this.product.name,
+        content_id: this.product.id,
+        content_type: 'product',
+        value: this.selectedProductVariant.price,
+        currency: 'BDT',
+      })
+
       this.$store.dispatch('cart/addToCart', {cartData, product: this.product});
 
       this.$toast("Product added to cart");

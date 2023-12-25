@@ -76,7 +76,7 @@ import ProductMedia from "../../components/product/ProductMedia.vue";
 import ProductDetail from "../../components/product/ProductDetail.vue";
 import ProductMediaThumb from "../../components/product/ProductMediaThumb.vue";
 import ProductDescription from "../../components/product/ProductDescription.vue";
-import {computeImageUrl} from "../../utils/common";
+import {computeImageUrl, computePrice} from "../../utils/common";
 import ProductCard from "~/components/ProductCard.vue";
 
 export default {
@@ -160,6 +160,17 @@ export default {
       this.relatedProducts = await this.$axios.$get('/get-related-products/' + slug)
     } catch (e) {
 
+    }
+  },
+  mounted() {
+    if (process.browser) {
+      this.$fb.track('ViewContent', {
+        content_type: 'product',
+        content_id: this.product.id,
+        content_name: this.product.name,
+        currency: 'BDT',
+        value: computePrice(this.product)[0] ?? 0,
+      })
     }
   }
 }
