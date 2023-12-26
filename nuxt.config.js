@@ -158,8 +158,7 @@ export default {
     pixelId: '882323896716986',
     manualMode: true,
     //autoPageView: true,
-    //disabled: process.env.NODE_ENV === 'development'
-    disabled: false,
+    disabled: process.env.NODE_ENV === 'development'
   },
 
   serverMiddleware: {
