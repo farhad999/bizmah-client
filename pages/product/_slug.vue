@@ -5,21 +5,24 @@
 
       <div class="row">
         <div class="col-12 mt-2 mb-4">
-          <div>
+<!--          <div>
             <nuxt-link to="/">Home</nuxt-link>
             <span class="mx-2">
             <i class="fa fa-chevron-right"></i>
           </span>
             <span>{{ this.product.name }}</span>
-          </div>
+          </div>-->
+
+          <BreadCrumb :items="breadCrumbItems"/>
+
         </div>
 
         <div class="col-lg-4">
           <div class="d-none d-lg-block">
             <ProductMediaThumb
-              :images="images" :product="product" direction="left"
-              @onThumbClick="(index)=>thumbIndex = index"
-              :loading="loading"
+                :images="images" :product="product" direction="left"
+                @onThumbClick="(index)=>thumbIndex = index"
+                :loading="loading"
             />
           </div>
           <div class="d-none d-lg-block">
@@ -31,18 +34,18 @@
 
         <div class="col-lg-4">
           <ProductMedia
-            :product="product"
-            :images="images"
-            :thumbIndex="thumbIndex"
-            @onThumbClick="(index)=>thumbIndex=index"
-            :loading="loading"
+              :product="product"
+              :images="images"
+              :thumbIndex="thumbIndex"
+              @onThumbClick="(index)=>thumbIndex=index"
+              :loading="loading"
           />
         </div>
 
         <div class="col-lg-4">
           <ProductDetail
-            :product="product"
-            :loading="loading"
+              :product="product"
+              :loading="loading"
           />
         </div>
         <div class="d-lg-none col-12">
@@ -60,10 +63,10 @@
       <h4 class="product-section-title">Related products</h4>
       <div class="row">
         <ProductCard
-          v-for="(product, index) in relatedProducts"
-          class="col-6 col-md-3 col-xl-3"
-          :key="index"
-          :product="product"
+            v-for="(product, index) in relatedProducts"
+            class="col-6 col-md-3 col-xl-3"
+            :key="index"
+            :product="product"
         />
       </div>
     </div>
@@ -78,9 +81,10 @@ import ProductMediaThumb from "../../components/product/ProductMediaThumb.vue";
 import ProductDescription from "../../components/product/ProductDescription.vue";
 import {computeImageUrl, computePrice} from "../../utils/common";
 import ProductCard from "~/components/ProductCard.vue";
+import BreadCrumb from "~/components/BreadCrumb.vue";
 
 export default {
-  components: {ProductCard, ProductDescription, ProductMediaThumb, ProductMedia, ProductDetail},
+  components: {BreadCrumb, ProductCard, ProductDescription, ProductMediaThumb, ProductMedia, ProductDetail},
   head() {
     return {
       title: this.product.name,
@@ -140,16 +144,51 @@ export default {
       }))
 
       let variationImages = this.product.variations
-        .filter(variation => variation.image)
-        .map(variation => {
-          return {
-            variation_id: variation.id,
-            image_url: computeImageUrl(variation.image)
-          }
-        });
+          .filter(variation => variation.image)
+          .map(variation => {
+            return {
+              variation_id: variation.id,
+              image_url: computeImageUrl(variation.image)
+            }
+          });
 
       return [...thumbImage, ...variationImages, ...galleryImages];
     },
+    breadCrumbItems() {
+      let items = [];
+      if (this.product) {
+
+        let {category, sub_category, sub_sub_category} = this.product;
+
+        if (category) {
+          items.push({
+            text: category.name,
+            url: `/category/${category.slug}`
+          })
+        }
+        if (sub_category) {
+          items.push({
+            text: sub_category.name,
+            url: `/category/${category.slug}/${sub_category.slug}`
+          })
+        }
+        if (sub_sub_category) {
+          items.push({
+            text: sub_sub_category.name,
+            url: `/category/${category.slug}/${sub_category.slug}/${sub_sub_category.slug}`
+          })
+        }
+      }
+
+      if (this.product) {
+        items.push({
+          text: this.product.name,
+          url: '/product/' + this.product.slug
+        })
+      }
+
+      return items;
+    }
   },
   async fetch() {
     let slug = this.$route.params.slug;

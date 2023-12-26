@@ -1,6 +1,10 @@
 <template>
   <div class="container-fluid">
 
+    <BreadCrumb :items="breadCrumbItems"/>
+
+    <hr/>
+
     <div class="row">
       <div class="col-12" v-if="category">
         <div class="px-md-2">
@@ -17,13 +21,13 @@
         <div class="shop-category-list mb-3">
           <div class="row">
             <div v-for="(cat, index) in category.children"
-                 class="featured-category-item col-lg-2 col-md-3 col-sm-6 col-6"
+                 class="featured-category-item col-lg-3 col-md-3 col-sm-3 col-3"
                  :key="index"
             >
               <nuxt-link :to="`/category/${cat.slug}`">
                 <div class="category-image-container">
                   <nuxt-img :src="computeImageUrl(cat.image)" alt="cat"
-                  sizes="sm:200px"
+                            sizes="sm:200px"
                   />
                 </div>
                 <div class="category-title">{{ cat.name }}</div>
@@ -96,9 +100,11 @@ import Accordion from "../../components/Accordion.vue";
 import Disclosure from "../../components/Disclosure.vue";
 import FilterChip from "../../components/FilterChip.vue";
 import search from "../../components/Navbar/Search.vue";
+import BreadCrumb from "~/components/BreadCrumb.vue";
 
 export default {
   components: {
+    BreadCrumb,
     FilterChip,
     Disclosure,
     Accordion,
@@ -152,6 +158,48 @@ export default {
     },
   },
   computed: {
+    breadCrumbItems() {
+
+      let {category, subCategory, subSubCategory} = this.$route.params;
+
+      let items = [];
+
+      let cat = this.$store.getters["product/getCategoryBySlug"](category)
+
+      if(cat){
+        items.push({
+          text: cat.name,
+          url: '/category/' + cat.slug
+        })
+      }
+
+      if (!subCategory) {
+        return items;
+      }
+
+      let subCat = this.$store.getters["product/getCategoryBySlug"](category, subCategory)
+
+      if(subCat){
+        items.push({
+          text: subCat.name,
+          url: `/category/${cat.slug}/${subCat.slug}`
+        })
+      }
+
+      if (!subSubCategory) {
+        return items;
+      }
+
+      let subSubCat = this.$store.getters["product/getCategoryBySlug"](category, subCategory, subSubCategory)
+
+      items.push({
+        text: subSubCat.name,
+        url: '/category/' + subSubCat.slug
+      })
+
+      return items
+
+    },
     categories: function () {
       return this.$store.state.product.categories;
     },
@@ -161,6 +209,8 @@ export default {
     category() {
 
       let {category, subCategory, subSubCategory} = this.$route.params;
+
+      return this.$store.getters["product/getCategoryBySlug"](category)
 
       let cat = null;
 
@@ -193,22 +243,6 @@ export default {
       }
 
       return null;
-
-    },
-    secondLevelCategory() {
-      let {category, subCategory} = this.$route.params;
-
-      let cat = null;
-
-      if (category) {
-        cat = this.categories.find(item => item.slug === category)
-        this.categoryId = cat?.id;
-      }
-      let subCat = null;
-      if (cat && subCategory) {
-        subCat = cat.children.find(item => item.slug === subCategory)
-      }
-      return subCat;
 
     },
     brand() {
