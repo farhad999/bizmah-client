@@ -10,9 +10,35 @@
           :product="product"
         />
       </div>
+
+      <div v-if="hasMore" class="col-12 d-flex justify-content-center my-4">
+        <button class="dark-btn" @click="loadMore">
+          <span v-if="!loading">Load More</span>
+          <span v-else class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        </button>
+      </div>
+
     </template>
     <div class="col-12" v-else>
-      <div class="py-5">
+
+      <template v-if="loading && products.length === 0">
+        <div class="row">
+          <div
+            class="col-6 col-sm-4 col-md-3 mb-3"
+            v-for="(item, index) in repeatCount.slice(0, pagination.perPage)"
+            :key="'skel-shop' + index"
+          >
+            <div class="product-card">
+              <div class="skeleton mb-2" style="width: 100%; aspect-ratio: 1"></div>
+              <div class="skeleton mb-1 line w-80"></div>
+              <div class="skeleton mb-1 line w-60"></div>
+              <div class="skeleton mb-1 line w-70"></div>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <div class="py-5" v-else>
         <div class="text-center font-visby-bold text-18">No Products Found</div>
       </div>
     </div>
@@ -32,25 +58,11 @@ export default {
       },
   },
   data() {
-    return {}
+    return {
+      repeatCount: new Array(50),
+    }
   },
   methods: {
-    showSidebarFilter: function () {
-      document.querySelector('body').classList.add('sidebar-opened');
-    },
-    changePerPage: function (ev) {
-
-      let perPage = ev.target.value;
-      //this.$store.dispatch('product/updatePagination', {perPage})
-      //reset pagination to 1
-      this.$router.push({
-        ...this.$route, query: {...this.$route.query, page: 1, per_page: perPage}
-      })
-    },
-    onPageChange(value) {
-      //console.log('on change page');
-      //this.$store.dispatch('product/updatePagination', {page: value})
-    },
     onSortChange(event) {
       let value = event.target.value;
 
@@ -68,34 +80,8 @@ export default {
     applyParams(query) {
       this.$store.dispatch('product/applyParams', query);
     },
-    toggleSidebar: function () {
-      let body = document.querySelector('body');
-      if (body.classList.contains('sidebar-opened')) {
-        body.classList.remove('sidebar-opened');
-      } else {
-        body.classList.add('sidebar-opened');
-      }
-    },
-    removeFilter(key) {
-
-      console.log("clear all")
-      console.log({key})
-      let query = {...this.$route.query};
-      if (key) {
-        delete query[key];
-      } else {
-        query = {};
-      }
-
-      console.log({query})
-
-      this.$router.push({
-        path: this.$route.path,
-        query: {
-          ...query,
-          page: 1,
-        }
-      })
+    loadMore() {
+      this.$store.dispatch('product/loadMore');
     }
   },
   computed: {
@@ -129,6 +115,9 @@ export default {
     category() {
       let {category, subCategory, subSubCategory} = this.$route.params;
       return this.$store.getters["product/getCategoryBySlug"](category, subCategory, subSubCategory)
+    },
+    hasMore() {
+      return this.$store.state.product.hasMoreProducts;
     }
 
   }

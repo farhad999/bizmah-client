@@ -19,6 +19,7 @@ export default {
         perPage: 12,
         total: 0,
       },
+      hasMoreProducts: true,
       filters: {
         category: '',
         price: '',
@@ -143,7 +144,7 @@ export default {
           params.brand_id = state.brand;
         }
 
-        if(state.search){
+        if (state.search) {
           params.q = state.search
         }
 
@@ -158,11 +159,15 @@ export default {
 
         state.loading = false;
 
+        state.hasMoreProducts = !!data.next_page_url;
+
         let productData = data.data || [];
 
         let {total} = data;
 
-        commit("SET_PRODUCTS", productData)
+        let merged = [...state.productList, ...productData];
+
+        commit("SET_PRODUCTS", merged)
 
         commit('SET_PAGINATION', {total});
 
@@ -315,6 +320,10 @@ export default {
 
     closeQuickView({state}) {
       state.quickViewModal = false;
+    },
+    loadMore({state, dispatch}) {
+      state.pagination.page = state.pagination.page + 1;
+      dispatch('getProducts')
     }
 
   },
