@@ -100,8 +100,13 @@ export default {
         console.log(err);
       }
     },
-    async getProducts({state, commit}) {
+    async getProducts({state, commit}, pageChange = false) {
       try {
+
+
+        if (!pageChange) {
+          state.pagination.page = 1;
+        }
 
         state.loading = true;
 
@@ -165,7 +170,11 @@ export default {
 
         let {total} = data;
 
-        let merged = [...state.productList, ...productData];
+        let merged = productData;
+
+        if(pageChange){
+          merged = [...state.productList, ...merged ]
+        }
 
         commit("SET_PRODUCTS", merged)
 
@@ -323,7 +332,7 @@ export default {
     },
     loadMore({state, dispatch}) {
       state.pagination.page = state.pagination.page + 1;
-      dispatch('getProducts')
+      dispatch('getProducts', true)
     }
 
   },
