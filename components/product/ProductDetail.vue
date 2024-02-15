@@ -105,7 +105,7 @@
 
     <div class="d-block d-md-flex align-items-center my-3">
       <button class="btn btn-outline-dark btn-block text-uppercase mx-1 my-2" @click="()=>addCart(false)">Add To Cart</button>
-      <button class="btn btn-dark btn-block text-uppercase my-2 mx-1" @click="()=>addCart(true)">By Now</button>
+      <button class="btn btn-dark btn-block text-uppercase my-2 mx-1" @click="()=>addCart(true)">Buy Now</button>
     </div>
 
     <div>
