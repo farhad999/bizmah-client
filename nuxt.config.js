@@ -155,7 +155,7 @@ export default {
     track: 'PageView',
     //pixelId: '722557496190189',
     //pixelId: '670381621639471',
-    pixelId: '882323896716986',
+    pixelId: '1072330063975564',
     manualMode: true,
     //autoPageView: true,
     disabled: process.env.NODE_ENV === 'development'
